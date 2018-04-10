@@ -1,47 +1,43 @@
-// https://gist.github.com/creationix/707146
-// Load the TCP Library
-net = require('net');
 
-// Keep track of the chat clients
-var clients = [];
+//
+// Server
+// https://gist.github.com/branneman/0a77af5d10b93084e4f2
+// https://nodejs.org/docs/latest-v7.x/api/net.html#net_class_net_socket
+// https://nodejs.org/docs/latest-v7.x/api/net.html#net_event_connection
+
+var net = require('net');
+var server = new net.Server();
 const port = 3000;
 
-// Start a TCP Server
-net.createServer(function (socket) {
+var sockets = [];
 
-  // Identify this client
-  socket.name = socket.remoteAddress + ":" + socket.remotePort;
+server.on('connection', function(socket) {
 
-  // Put this new client in the list
-  clients.push(socket);
+	console.log('Socket is open!');
+	socket.setEncoding('utf8');
 
-  // Send a nice welcome message and announce
-  socket.write("Welcome " + socket.name + "\n");
-  broadcast(socket.name + " joined the chat.\n", socket);
+	// events
+	socket.on('data', function(data) {
+		console.log('Received:', data);
+		console.log(JSON.stringify(data));
+		if (data == "connection_request") {
+			sockets.push(socket);
+			socket.write("request_granted\u0000");
+		}
+		else {
+			socket.write("request_denied\u0000");
+		}
+	});
 
-  // Handle incoming messages from clients.
-  socket.on('data', function (data) {
-    broadcast(socket.name + "> " + data, socket);
-  });
+	socket.on('close', function() {
+		console.log('socket closed');
+	});
 
-  // Remove the client from the list when it leaves
-  socket.on('end', function () {
-    clients.splice(clients.indexOf(socket), 1);
-    broadcast(socket.name + " left the chat.\n");
-  });
-  
-  // Send a message to all clients
-  function broadcast(message, sender) {
-    clients.forEach(function (client) {
-      // Don't want to send it to sender
-      if (client === sender) return;
-      client.write(message);
-    });
-    // Log it to the server output too
-    process.stdout.write(message)
-  }
+	socket.on('error', function() {
+		console.log('Socket error!');
+	});
+});
 
-}).listen(port);
-
-// Put a friendly message on the terminal of the server.
-console.log("Chat server running at port " + port);
+server.listen(port, function() {
+	console.log('Server is listening on *:' + port);
+});

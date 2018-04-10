@@ -1,9 +1,18 @@
 #pragma once
+#include "testing.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/System/Clock.hpp>
 #include <string>
+#include "SocketManager.h"
+
+/*
+DEBUG MODE
+COMMENT OUT TO PUT
+INTO PRODUCTION MODE
+*/
+#define DEBUG
 
 using std::string;
 

@@ -1,18 +1,17 @@
 #include "Game.h"
 
 /*
-DEBUG MODE
-COMMENT OUT TO PUT
-INTO PRODUCTION MODE
-*/
-#define DEBUG
-
-/*
 Public Functions
 */
 Game::~Game() {}
 
+// this code runs once
 void Game::start() {
+
+	SocketManager sm;
+
+
+
 	loop();
 }
 
