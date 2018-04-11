@@ -51,8 +51,8 @@ private:
 	vector<sf::Drawable *> players;
 
 	
-
-	void update(float dt);
+	void updatePhysics(float dt);
+	void update();
 	void processEvents();
 	void render();
 	void loop();

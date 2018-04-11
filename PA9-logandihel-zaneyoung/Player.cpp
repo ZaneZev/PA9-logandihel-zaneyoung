@@ -7,9 +7,13 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(name, states);
 }
 
-void Player::update(float dt) {
+void Player::update() {
 	name.setPosition(car->getPosition());
-	car->update(dt);
+	//car->update(dt);
+}
+
+void Player::updatePhysics(float dt) {
+	car->updatePhysics(dt);
 }
 
 void Player::nudgeLeft() {
@@ -31,5 +35,4 @@ void Player::rotateLeft() {
 }
 void Player::rotateRight() {
 	car->addForce(sf::Vector2f(1000, 0), sf::Vector2f(2, -20));
-
 }

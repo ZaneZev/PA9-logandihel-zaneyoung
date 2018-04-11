@@ -19,16 +19,17 @@ public:
 		torque = 0.0;
 
 		mass = 1.0;
-		inertia = 60; 
+		inertia = 60.0;
 	}
 
 	// https://www.gamedev.net/forums/topic/470497-2d-car-physics-tutorial/
-	void addForce(sf::Vector2f worldForce, sf::Vector2f worldOffset = sf::Vector2f(0, 0));
+	void addForce(sf::Vector2f &worldForce, sf::Vector2f &relativeOffset = sf::Vector2f(0, 0));
+	sf::Vector2f worldToRelative(sf::Vector2f &worldVector);
 
-	void update(float dt);
+	void updatePhysics(float dt);
 
 private:
-	float crossProduct(sf::Vector2f &worldForce, sf::Vector2f &worldOffset);
+	float crossProduct(sf::Vector2f &f, sf::Vector2f &offset);
 	sf::Vector2f acceleration;
 	sf::Vector2f velocity;
 	sf::Vector2f force;

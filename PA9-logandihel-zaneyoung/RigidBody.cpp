@@ -1,11 +1,11 @@
 #include "RigidBody.h"
 
-void RigidBody::addForce(sf::Vector2f worldForce, sf::Vector2f worldOffset) {
+void RigidBody::addForce(sf::Vector2f &worldForce, sf::Vector2f &relativeOffset) {
 	force += worldForce;
-	torque += crossProduct(worldForce,worldOffset); 
+	torque += crossProduct(worldForce, relativeOffset);
 }
 
-void RigidBody::update(float dt) {
+void RigidBody::updatePhysics(float dt) {
 	
 	acceleration = force / mass; // force is a vector
 	velocity += acceleration * dt;
@@ -18,17 +18,17 @@ void RigidBody::update(float dt) {
 	torque = 0;
 }
 
-float RigidBody::crossProduct(sf::Vector2f &worldForce, sf::Vector2f &worldOffset) {
-	if (worldOffset.y == 0)
+float RigidBody::crossProduct(sf::Vector2f &f, sf::Vector2f &offset) {
+	if (offset.y == 0)
 		return 0;
 
-	float f_magn = sqrt(worldForce.x * worldForce.x + worldForce.y * worldForce.y);
-	float r_magn = sqrt(worldOffset.x * worldOffset.x + worldOffset.y * worldOffset.y);
+	float f_magn = sqrt(f.x * f.x + f.y * f.y);
+	float r_magn = sqrt(offset.x * offset.x + offset.y * offset.y);
 
 	//cout << r_magn << endl;
 
 	// we could calculate sin(atan(y/x)), but sin(atan(s)) = s/sqrt(s^2+1) ~ 1/s => x/y
-	float sinatan = sin(atan(worldOffset.y / worldOffset.x));
+	float sinatan = sin(atan(offset.y / offset.x));
 
 	return -f_magn * r_magn * sinatan;
 }

@@ -32,16 +32,21 @@ void Game::loop() {
 	int frames = 0, updates = 0;
 	long microseconds = 0;
 	sf::Clock systemtime;
-	systemtime.restart();
-	while (this->isOpen())
-	{
+	systemtime.restart().asMicroseconds();
+	long sumdt = 0;
+
+	while (this->isOpen()) {
+
 		long dtMicro = systemtime.getElapsedTime().asMicroseconds();
+		systemtime.restart();
+		sumdt += dtMicro;
+
 		// update calls
-		if (dtMicro >= dtTarget) {
-			microseconds += dtMicro;
+		if (sumdt >= dtTarget) {
+			microseconds += sumdt;
 			++updates;
-			systemtime.restart();
-			update(dtMicro/1E6);
+			sumdt = 0;
+			update();
 		}
 	
 		// debug only
@@ -57,16 +62,23 @@ void Game::loop() {
 #endif
 
 		// render screen as fast as possible
+		updatePhysics(dtMicro/1E6);
 		render();
 		++frames;
 	}
 }
 
-void Game::update(float dt) {
+void Game::update() {
 	processEvents();
 
 	for (int i = 0; i < players.size(); i++) {
-		(dynamic_cast<Player *>(players.at(0)))->update(dt);
+		(dynamic_cast<Player *>(players.at(0)))->update();
+	}
+}
+
+void Game::updatePhysics(float dt) {
+	for (int i = 0; i < players.size(); i++) {
+		(dynamic_cast<Player *>(players.at(0)))->updatePhysics(dt);
 	}
 }
 
@@ -79,7 +91,7 @@ void Game::processEvents() {
 		}
 	}
 
-
+	/*
 	// handle user input seperately
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		// nudge player up
@@ -89,8 +101,12 @@ void Game::processEvents() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		// nudge player down
 		cout << "down" << endl;
-		(dynamic_cast<Player *>(players.at(0)))->nudgeDown();
+		(dynamic_cast<Player *>(players.at(0)))->leftIsPressed = true;
 	}
+	else {
+		(dynamic_cast<Player *>(players.at(0)))->leftIsPressed = false;
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		// nudge player left
 		cout << "left" << endl;
@@ -104,7 +120,7 @@ void Game::processEvents() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
 		cout << "Lshift" << endl;
 		(dynamic_cast<Player *>(players.at(0)))->stop();
-	}
+	}*/
 }
 
 void Game::render() {

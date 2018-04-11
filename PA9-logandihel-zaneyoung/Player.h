@@ -22,7 +22,8 @@ public:
 	}
 
 	virtual ~Player();
-	void update(float dt);
+	void update();
+	void updatePhysics(float dt);
 
 	void nudgeLeft();
 	void nudgeRight();
@@ -31,6 +32,8 @@ public:
 	void stop();
 	void rotateLeft();
 	void rotateRight();
+
+	bool leftIsPressed;
 
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
