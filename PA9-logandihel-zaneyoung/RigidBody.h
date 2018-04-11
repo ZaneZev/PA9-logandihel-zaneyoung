@@ -1,6 +1,5 @@
 #pragma once
 #include "testing.h"
-#include "VectorUtil.h"
 #include <SFML/Graphics.hpp>
 
 class RigidBody : public sf::RectangleShape {
