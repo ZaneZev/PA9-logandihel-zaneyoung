@@ -7,7 +7,7 @@
 
 int main()
 {
-	Game game("ripoff racecar");
+	Game game("Nitro Knockoffs");
 	game.start();
     return 0;
 }

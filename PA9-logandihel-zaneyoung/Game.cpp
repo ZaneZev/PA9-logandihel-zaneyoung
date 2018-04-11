@@ -10,12 +10,15 @@ Game::~Game() {
 // this code runs once
 void Game::start() {
 
-	try {
+	//drawables.push_back(new Car(30.f, 60.f));
+	players.push_back(new Player());
+
+	/*try {
 		sm = new SocketManager();
 	}
 	catch (std::exception &e) {
 		cout << "Could not connect to server in Game::start()" << endl;
-	}
+	}*/
 	
 	loop();
 }
@@ -61,6 +64,10 @@ void Game::loop() {
 
 void Game::update() {
 	processEvents();
+
+	for (int i = 0; i < players.size(); i++) {
+		(dynamic_cast<Player *>(players.at(0)))->update();
+	}
 }
 
 void Game::processEvents() {
@@ -70,14 +77,41 @@ void Game::processEvents() {
 		if (event.type == sf::Event::Closed) {
 			close(); // program over
 		}
-		else if (event.type == sf::Event::KeyPressed) {
-			// TODO: process user input
-		}
+	}
+
+
+	// handle user input seperately
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		// nudge player up
+		cout << "up" << endl;
+		(dynamic_cast<Player *>(players.at(0)))->nudgeUp();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		// nudge player down
+		cout << "down" << endl;
+		(dynamic_cast<Player *>(players.at(0)))->nudgeDown();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		// nudge player left
+		cout << "left" << endl;
+		(dynamic_cast<Player *>(players.at(0)))->rotateLeft();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		// nudge player right
+		cout << "right" << endl;
+		(dynamic_cast<Player *>(players.at(0)))->rotateRight();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+		cout << "Lshift" << endl;
+		(dynamic_cast<Player *>(players.at(0)))->stop();
 	}
 }
 
 void Game::render() {
 	clear();
 	// TODO: all rendering goes here
+	for (int i = 0; i < players.size(); i++) {
+		draw(*players.at(i));
+	}
 	display();
 }

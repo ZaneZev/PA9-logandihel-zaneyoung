@@ -148,17 +148,19 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h" />
+    <ClInclude Include="Car.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SocketManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="testing.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PA9-logandihel-zaneyoung.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SocketManager.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>

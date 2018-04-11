@@ -7,6 +7,9 @@
 #include <string>
 #include <iostream>
 #include "SocketManager.h"
+#include <vector>
+#include "Car.h"
+#include "Player.h"
 
 /*
 DEBUG MODE
@@ -18,6 +21,7 @@ INTO PRODUCTION MODE
 using std::string;
 using std::cout;
 using std::endl;
+using std::vector;
 
 /*
 Game.h
@@ -44,6 +48,7 @@ private:
 	int width;
 	int height;
 	string title;
+	vector<sf::Drawable *> players;
 
 	void update();
 	void processEvents();
