@@ -3,15 +3,20 @@
 /*
 Public Functions
 */
-Game::~Game() {}
+Game::~Game() {
+	delete sm;
+}
 
 // this code runs once
 void Game::start() {
 
-	SocketManager sm;
-
-
-
+	try {
+		sm = new SocketManager();
+	}
+	catch (std::exception &e) {
+		cout << "Could not connect to server in Game::start()" << endl;
+	}
+	
 	loop();
 }
 

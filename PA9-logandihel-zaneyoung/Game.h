@@ -5,6 +5,7 @@
 #include <SFML/Network.hpp>
 #include <SFML/System/Clock.hpp>
 #include <string>
+#include <iostream>
 #include "SocketManager.h"
 
 /*
@@ -15,6 +16,8 @@ INTO PRODUCTION MODE
 #define DEBUG
 
 using std::string;
+using std::cout;
+using std::endl;
 
 /*
 Game.h
@@ -29,16 +32,19 @@ public:
 		sf::RenderWindow(sf::VideoMode(width, height), title) {
 		this->targetFPS = fps;
 		this->title = title;
+		this->sm = nullptr;
 	}
 	~Game();
 
 	void start();
 
 private:
+	SocketManager *sm;
 	int targetFPS;
 	int width;
 	int height;
 	string title;
+
 	void update();
 	void processEvents();
 	void render();
