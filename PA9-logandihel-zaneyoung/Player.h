@@ -17,11 +17,12 @@ public:
 	Player(string name = "") : sf::Drawable() { 
 		this->name.setString(name);
 		this->name.setOutlineColor(sf::Color::White);
-		this->name.setPosition(car.getPosition());
+		car = new Car(*(new sf::Vector2f(100, 100)), sf::Color::Yellow, *(new sf::Vector2f(30, 60)));
+		this->name.setPosition(car->getPosition());
 	}
 
 	virtual ~Player();
-	void update();
+	void update(float dt);
 
 	void nudgeLeft();
 	void nudgeRight();
@@ -34,5 +35,5 @@ public:
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 	sf::Text name;
-	Car car;
+	Car *car;
 };

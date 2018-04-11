@@ -50,7 +50,9 @@ private:
 	string title;
 	vector<sf::Drawable *> players;
 
-	void update();
+	
+
+	void update(float dt);
 	void processEvents();
 	void render();
 	void loop();

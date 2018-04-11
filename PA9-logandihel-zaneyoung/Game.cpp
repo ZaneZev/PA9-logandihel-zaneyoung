@@ -11,7 +11,7 @@ Game::~Game() {
 void Game::start() {
 
 	//drawables.push_back(new Car(30.f, 60.f));
-	players.push_back(new Player());
+	players.push_back(new Player("Racecar"));
 
 	/*try {
 		sm = new SocketManager();
@@ -41,7 +41,7 @@ void Game::loop() {
 			microseconds += dtMicro;
 			++updates;
 			systemtime.restart();
-			update();
+			update(dtMicro/1E6);
 		}
 	
 		// debug only
@@ -62,11 +62,11 @@ void Game::loop() {
 	}
 }
 
-void Game::update() {
+void Game::update(float dt) {
 	processEvents();
 
 	for (int i = 0; i < players.size(); i++) {
-		(dynamic_cast<Player *>(players.at(0)))->update();
+		(dynamic_cast<Player *>(players.at(0)))->update(dt);
 	}
 }
 
@@ -111,6 +111,7 @@ void Game::render() {
 	clear();
 	// TODO: all rendering goes here
 	for (int i = 0; i < players.size(); i++) {
+		//draw(level.at(loadedlevelindex));
 		draw(*players.at(i));
 	}
 	display();

@@ -7,3 +7,7 @@ comment out DEBUG line to turn off debug mode
 and disable a bunch of print statements
 */
 #define DEBUG
+#include <iostream>
+
+using std::cout;
+using std::endl;
