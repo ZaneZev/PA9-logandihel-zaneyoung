@@ -11,7 +11,7 @@ Game::~Game() {
 void Game::start() {
 
 	//drawables.push_back(new Car(30.f, 60.f));
-	players.push_back(new Player("Racecar"));
+	players.push_back(new LocalPlayer("Racecar"));
 
 	/*try {
 		sm = new SocketManager();
@@ -72,13 +72,13 @@ void Game::update() {
 	processEvents();
 
 	for (int i = 0; i < players.size(); i++) {
-		(dynamic_cast<Player *>(players.at(0)))->update();
+		(dynamic_cast<Player *>(players.at(i)))->update();
 	}
 }
 
 void Game::updatePhysics(float dt) {
 	for (int i = 0; i < players.size(); i++) {
-		(dynamic_cast<Player *>(players.at(0)))->updatePhysics(dt);
+		(dynamic_cast<Player *>(players.at(i)))->updatePhysics(dt);
 	}
 }
 

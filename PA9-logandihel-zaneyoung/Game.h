@@ -9,7 +9,7 @@
 #include "SocketManager.h"
 #include <vector>
 #include "Car.h"
-#include "Player.h"
+#include "LocalPlayer.h"
 
 /*
 DEBUG MODE
@@ -49,7 +49,6 @@ private:
 	int height;
 	string title;
 	vector<sf::Drawable *> players;
-
 	
 	void updatePhysics(float dt);
 	void update();
