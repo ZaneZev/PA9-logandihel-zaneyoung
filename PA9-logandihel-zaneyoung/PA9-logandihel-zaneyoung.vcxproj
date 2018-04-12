@@ -153,7 +153,10 @@
   <ItemGroup>
     <ClInclude Include="Car.h" />
     <ClInclude Include="Game.h" />
+
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="LocalPlayer.h" />
+
     <ClInclude Include="Player.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="SocketManager.h" />
@@ -165,6 +168,8 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="LocalPlayer.cpp" />
+
     <ClCompile Include="PA9-logandihel-zaneyoung.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RigidBody.cpp" />

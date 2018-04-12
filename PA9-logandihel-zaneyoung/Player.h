@@ -22,21 +22,13 @@ public:
 	}
 
 	virtual ~Player();
-	void update();
-	void updatePhysics(float dt);
+	virtual void update() = 0;
+	virtual void updatePhysics(float dt) = 0;
 
-	void nudgeLeft();
-	void nudgeRight();
-	void nudgeUp();
-	void nudgeDown();
-	void stop();
-	void rotateLeft();
-	void rotateRight();
-
-	bool leftIsPressed;
+protected:
+	Car *car;
 
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 	sf::Text name;
-	Car *car;
 };

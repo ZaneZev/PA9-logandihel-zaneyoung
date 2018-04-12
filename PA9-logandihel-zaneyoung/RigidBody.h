@@ -25,6 +25,7 @@ public:
 	// https://www.gamedev.net/forums/topic/470497-2d-car-physics-tutorial/
 	void addForce(sf::Vector2f &worldForce, sf::Vector2f &relativeOffset = sf::Vector2f(0, 0));
 	sf::Vector2f worldToRelative(sf::Vector2f &worldVector);
+	sf::Vector2f relativeToWorld(sf::Vector2f &relativeVector);
 
 	void updatePhysics(float dt);
 
