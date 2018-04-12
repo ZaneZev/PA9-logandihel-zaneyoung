@@ -66,11 +66,11 @@ void Game::loop() {
 void Game::update() {
 	processEvents();
 
-	currentScene->update();
+	scenes[currentSceneState]->update();
 }
 
 void Game::updatePhysics(float dt) {
-	currentScene->updatePhysics(dt);
+	scenes[currentSceneState]->updatePhysics(dt);
 }
 
 void Game::processEvents() {
@@ -86,14 +86,14 @@ void Game::processEvents() {
 void Game::render() {
 	clear();
 	// TODO: all rendering goes here
-	draw(*currentScene);
+	draw(*scenes[currentSceneState]);
 	display();
 }
 
-Scene * Game::getCurrentScene() {
-	return currentScene;
+SceneState Game::getCurrentSceneState() {
+	return currentSceneState;
 }
 
-void Game::setCurrentScene(Scene *scene) {
-	currentScene = scene;
+void Game::setCurrentSceneState(SceneState state) {
+	currentSceneState = state;
 }

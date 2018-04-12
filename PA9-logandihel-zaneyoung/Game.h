@@ -25,6 +25,12 @@ using std::cout;
 using std::endl;
 using std::vector;
 
+#define NUM_SCENES 2
+typedef enum scenestate {
+	SPLASH_SCENE,
+	PLAY_SCENE
+} SceneState;
+
 /*
 Game.h
 Inherits from the sf::RenderWindow class
@@ -39,24 +45,25 @@ public:
 		this->targetFPS = fps;
 		this->title = title;
 
-		scenes.push_back(new SplashScene());
-		currentScene = scenes[0];
+		scenes[SPLASH_SCENE] = new SplashScene();
+		currentSceneState = SPLASH_SCENE;
 	}
 	~Game();
 	void start();
 
-	// this returns a pointer
-	Scene * getCurrentScene();
-	// this accepts a pointer
-	void setCurrentScene(Scene *scene);
+	// returns at ENUM to which scene we're in
+	SceneState getCurrentSceneState();
+
+	// allows us to change the scene being updated and rendered
+	void setCurrentSceneState(SceneState state);
 
 private:
 	int targetFPS;
 	int width;
 	int height;
 	string title;
-	Scene *currentScene;
-	vector <Scene *> scenes;
+	SceneState currentSceneState;
+	Scene* scenes[NUM_SCENES];
 	
 	void updatePhysics(float dt);
 	void update();
