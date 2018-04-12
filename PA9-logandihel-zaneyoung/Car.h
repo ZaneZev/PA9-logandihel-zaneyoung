@@ -3,6 +3,8 @@
 #include "testing.h"
 #include "RigidBody.h"
 
+#define PI 3.141592645
+
 class Wheel;
 
 //https://www.gamedev.net/forums/topic/470497-2d-car-physics-tutorial/
@@ -25,34 +27,33 @@ public:
 	//void updatePhysics(float dt);
 
 private:
-	//void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 	Wheel *wheels[4]; // front-left, front-right, bottom-left, bottom-right
 	sf::Texture *texture;
 	//sf::Sprite *sprite;
 };
 
-class Wheel : public sf::Drawable {
+class Wheel : public RigidBody {
 
 	friend class Car;
 
 public:
-	Wheel(sf::Vector2f &position, float radius)
-		: sf::Drawable() {}
+	Wheel(sf::Vector2f &relPosition, float radius)
+		: RigidBody() {}
 
+	// angle is in degrees
 	void setSteeringAngle(float angle);
 	void addTransmissionTorque(float torque);
 	float getWheelSpeed();
-	sf::Vector2f getAttachPoint();
+	sf::Vector2f getRelPosition();
 	sf::Vector2f calculateForce(sf::Vector2f &relativeGroundSpeed, float dt);
 
 private:
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-	sf::Vector2f forwardAxis;
-	sf::Vector2f sideAxis;
-	sf::Vector2f position;
+	sf::Vector2f w_forwardAxis;
+	sf::Vector2f w_sideAxis;
+	sf::Vector2f w_relPosition;
 
-	float torque;
-	float speed;
-	float inertia;
-	float radius;
+	float w_torque;
+	float w_speed;
+	float w_inertia;
+	float w_radius;
 };

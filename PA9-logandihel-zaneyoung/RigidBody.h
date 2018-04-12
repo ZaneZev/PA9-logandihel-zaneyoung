@@ -4,7 +4,7 @@
 
 class RigidBody : public sf::RectangleShape {
 public:
-	RigidBody(sf::Vector2f &pos, sf::Vector2f &size) 
+	RigidBody(sf::Vector2f &pos=sf::Vector2f(), sf::Vector2f &size=sf::Vector2f()) 
 		: sf::RectangleShape(size)
 	{
 		setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
@@ -27,11 +27,12 @@ public:
 	void addForce(sf::Vector2f &worldForce, sf::Vector2f &relativeOffset = sf::Vector2f(0, 0));
 	sf::Vector2f worldToRelative(sf::Vector2f &worldVector);
 	sf::Vector2f relativeToWorld(sf::Vector2f &relativeVector);
-
-	void updatePhysics(float dt);
-
-private:
+	sf::Vector2f pointVelocity(sf::Vector2f &relativeOffset);
+	
+	virtual void updatePhysics(float dt);
 	float crossProduct(sf::Vector2f &f, sf::Vector2f &offset);
+
+protected:
 	sf::Vector2f acceleration;
 	sf::Vector2f velocity;
 	sf::Vector2f force;

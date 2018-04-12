@@ -42,3 +42,9 @@ sf::Vector2f RigidBody::worldToRelative(sf::Vector2f &worldVector) {
 sf::Vector2f RigidBody::relativeToWorld(sf::Vector2f &relativeVector) {
 	return relativeVector + getOrigin();
 }
+
+// https://www.gamedev.net/forums/topic/470497-2d-car-physics-tutorial/
+sf::Vector2f RigidBody::pointVelocity(sf::Vector2f &relativeOffset) {
+	sf::Vector2f tangent = sf::Vector2f(-relativeOffset.y, relativeOffset.x);
+	return tangent * angV + velocity;
+}
