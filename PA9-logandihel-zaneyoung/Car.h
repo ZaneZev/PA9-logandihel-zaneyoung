@@ -8,28 +8,43 @@
 class Wheel;
 
 //https://www.gamedev.net/forums/topic/470497-2d-car-physics-tutorial/
-class Car : public RigidBody {
+class Car : public sf::Drawable{
 public:
 	Car(sf::Vector2f &pos, sf::Color color, sf::Vector2f &size)
-		: RigidBody(pos, size) 
 	{
-		setFillColor(sf::Color::Yellow);
+
+		chasis = new RigidBody(pos, size);
+		chasis->setFillColor(sf::Color::Yellow);
 
 		texture = new sf::Texture;
 		if (!texture->loadFromFile("./sprites/first-car.png")) {
 			cout << "could not load texture" << endl;
 		}
 
-		this->setTexture(texture);
+		chasis->setTexture(texture);
+
+		for (int i = 0; i < 4; i++) {
+			wheels[i] = nullptr;
+		}
 	}
 
+	void driveForward();
+	void turnLeft(float angle = 45);
+	void turnRight(float angle = 45);
+	void turbo(float turboPower=20);
+	void brake(float brakeTorque=100);
+	void driveBackward();
+
 	//virtual ~Car();
-	//void updatePhysics(float dt);
+	void updatePhysics(float dt);
+
+private:
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 private:
 	Wheel *wheels[4]; // front-left, front-right, bottom-left, bottom-right
 	sf::Texture *texture;
-	//sf::Sprite *sprite;
+	RigidBody *chasis;
 };
 
 class Wheel : public RigidBody {

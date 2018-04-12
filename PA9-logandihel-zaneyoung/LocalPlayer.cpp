@@ -9,16 +9,16 @@ void LocalPlayer::update() {
 void LocalPlayer::updatePhysics(float dt) {
 
 	if (rightIsPressed) {
-		car->addForce(sf::Vector2f(-1000, 0), sf::Vector2f(50, 50));
+		car->driveForward();
 	}
 	if (leftIsPressed) {
-		car->addForce(sf::Vector2f(1000, 0), sf::Vector2f(-50, 50));
+		car->turnLeft();
 	}
 	if (upIsPressed) {
-		car->addForce(sf::Vector2f(0, -1000));
+		car->turnRight();
 	}
 	if (downIsPressed) {
-		car->addForce(sf::Vector2f(0, 1000));
+		car->driveBackward();
 	}
 
 	car->updatePhysics(dt);
