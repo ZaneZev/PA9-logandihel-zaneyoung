@@ -17,15 +17,20 @@ void RigidBody::updatePhysics(float dt) {
 	torque = 0;
 }
 
+// precondition: we have determined the force should interact with RigidBody instance
 float RigidBody::crossProduct(sf::Vector2f &f, sf::Vector2f &offset) {
-	if (offset.y == 0)
+	// no rotation if the offsets are zero
+	if (offset.x == 0 || offset.y == 0)
 		return 0;
 
 	float f_magn = sqrt(f.x * f.x + f.y * f.y);
 	float r_magn = sqrt(offset.x * offset.x + offset.y * offset.y);
 
 	// we could calculate sin(atan(y/x)), but sin(atan(s)) = s/sqrt(s^2+1) ~ 1/s => x/y
+	// but approx makes the game feel a lot more sluggish...
+	//float sinatanapprox = offset.x / offset.y;
 	float sinatan = sin(atan(offset.y / offset.x));
+	//cout << "exact: " << sinatan << ", approx: " << sinatanapprox << ", diff: " << sinatanapprox - sinatan << endl;
 
 	return f_magn * r_magn * sinatan;
 }

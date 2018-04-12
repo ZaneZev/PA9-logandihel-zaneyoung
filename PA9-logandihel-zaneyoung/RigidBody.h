@@ -4,12 +4,13 @@
 
 class RigidBody : public sf::RectangleShape {
 public:
-	RigidBody(sf::Vector2f &pos, sf::Color &c, sf::Vector2f &size) 
+	RigidBody(sf::Vector2f &pos, sf::Vector2f &size) 
 		: sf::RectangleShape(size)
 	{
-		setFillColor(c);
 		setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
-		
+		setOutlineColor(sf::Color(100, 100, 100));
+		setOutlineThickness(1);
+
 		acceleration = sf::Vector2f(0, 0);
 		velocity = sf::Vector2f(0, 0);
 		force = sf::Vector2f(0, 0);

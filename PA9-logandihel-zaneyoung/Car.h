@@ -9,14 +9,16 @@ class Wheel;
 class Car : public RigidBody {
 public:
 	Car(sf::Vector2f &pos, sf::Color color, sf::Vector2f &size)
-		: RigidBody(pos, color, size) 
+		: RigidBody(pos, size) 
 	{
-		texture = new sf::Texture();
-		texture->loadFromFile("./sprites/first-car.png");
-		sprite = new sf::Sprite();
-		sprite->setTexture(*texture);
-		sprite->setScale(10, 10);
-		sprite->setPosition(getPosition());
+		setFillColor(sf::Color::Yellow);
+
+		texture = new sf::Texture;
+		if (!texture->loadFromFile("./sprites/first-car.png")) {
+			cout << "could not load texture" << endl;
+		}
+
+		this->setTexture(texture);
 	}
 
 	//virtual ~Car();
@@ -26,7 +28,7 @@ private:
 	//void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 	Wheel *wheels[4]; // front-left, front-right, bottom-left, bottom-right
 	sf::Texture *texture;
-	sf::Sprite *sprite;
+	//sf::Sprite *sprite;
 };
 
 class Wheel : public sf::Drawable {
