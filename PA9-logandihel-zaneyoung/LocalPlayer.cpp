@@ -8,11 +8,11 @@ void LocalPlayer::update() {
 
 void LocalPlayer::updatePhysics(float dt) {
 
-	if (leftIsPressed) {
-		car->addForce(sf::Vector2f(-1000, 0), sf::Vector2f(15, 15));
-	}
 	if (rightIsPressed) {
-		car->addForce(sf::Vector2f(1000, 0), sf::Vector2f(-15, 15));
+		car->addForce(sf::Vector2f(-1000, 0), sf::Vector2f(50, 50));
+	}
+	if (leftIsPressed) {
+		car->addForce(sf::Vector2f(1000, 0), sf::Vector2f(-50, 50));
 	}
 	if (upIsPressed) {
 		car->addForce(sf::Vector2f(0, -1000));

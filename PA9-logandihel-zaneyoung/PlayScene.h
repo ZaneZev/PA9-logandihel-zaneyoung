@@ -36,5 +36,4 @@ private:
 	LocalPlayer *lp;
 	sf::Font font;
 	sf::Text *text;
-	
 };

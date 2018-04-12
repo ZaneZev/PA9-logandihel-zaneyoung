@@ -27,7 +27,7 @@ float RigidBody::crossProduct(sf::Vector2f &f, sf::Vector2f &offset) {
 	// we could calculate sin(atan(y/x)), but sin(atan(s)) = s/sqrt(s^2+1) ~ 1/s => x/y
 	float sinatan = sin(atan(offset.y / offset.x));
 
-	return -f_magn * r_magn * sinatan;
+	return f_magn * r_magn * sinatan;
 }
 
 sf::Vector2f RigidBody::worldToRelative(sf::Vector2f &worldVector) {
