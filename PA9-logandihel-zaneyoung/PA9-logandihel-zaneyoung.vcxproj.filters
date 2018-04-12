@@ -26,6 +26,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SplashScene.h" />
     <ClInclude Include="SplashScreen.h" />
+    <ClInclude Include="PlayScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

@@ -7,7 +7,6 @@ void LocalPlayer::update() {
 }
 
 void LocalPlayer::updatePhysics(float dt) {
-	//car->addForce(); ...
 
 	if (leftIsPressed) {
 		car->addForce(sf::Vector2f(-1000, 0), sf::Vector2f(15, 15));
@@ -26,10 +25,10 @@ void LocalPlayer::updatePhysics(float dt) {
 }
 
 void LocalPlayer::updateKeyboard() {
-	upIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-	downIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-	leftIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-	rightIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+	upIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+	downIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+	leftIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+	rightIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 	shiftIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
 }
 
