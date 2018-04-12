@@ -90,37 +90,6 @@ void Game::processEvents() {
 			close(); // program over
 		}
 	}
-
-	/*
-	// handle user input seperately
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		// nudge player up
-		cout << "up" << endl;
-		(dynamic_cast<Player *>(players.at(0)))->nudgeUp();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		// nudge player down
-		cout << "down" << endl;
-		(dynamic_cast<Player *>(players.at(0)))->leftIsPressed = true;
-	}
-	else {
-		(dynamic_cast<Player *>(players.at(0)))->leftIsPressed = false;
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		// nudge player left
-		cout << "left" << endl;
-		(dynamic_cast<Player *>(players.at(0)))->rotateLeft();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		// nudge player right
-		cout << "right" << endl;
-		(dynamic_cast<Player *>(players.at(0)))->rotateRight();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
-		cout << "Lshift" << endl;
-		(dynamic_cast<Player *>(players.at(0)))->stop();
-	}*/
 }
 
 void Game::render() {

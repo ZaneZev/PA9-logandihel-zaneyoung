@@ -6,6 +6,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+PA9-logandihel-zaneyoung.vcxproj
+PA9-logandihel-zaneyoung.vcxproj.filters
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
