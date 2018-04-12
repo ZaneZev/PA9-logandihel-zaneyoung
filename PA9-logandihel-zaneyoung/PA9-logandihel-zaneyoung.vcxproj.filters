@@ -11,6 +11,7 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
+    <ClCompile Include="Car.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Car.h" />

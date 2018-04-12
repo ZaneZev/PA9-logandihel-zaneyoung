@@ -11,7 +11,6 @@ public:
 		text->setFont(font);
 		text->setCharacterSize(50);
 		text->setString("Play Scene");
-		text->setColor(sf::Color::White);
 		text->setPosition(sf::Vector2f(200,200));
 		
 		lp = new LocalPlayer();
