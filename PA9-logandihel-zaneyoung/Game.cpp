@@ -3,15 +3,10 @@
 /*
 Public Functions
 */
-Game::~Game() {
-	delete sm;
-}
+Game::~Game() {}
 
 // this code runs once
 void Game::start() {
-
-	//drawables.push_back(new Car(30.f, 60.f));
-	players.push_back(new LocalPlayer("Racecar"));
 
 	/*try {
 		sm = new SocketManager();
@@ -71,15 +66,11 @@ void Game::loop() {
 void Game::update() {
 	processEvents();
 
-	for (int i = 0; i < players.size(); i++) {
-		(dynamic_cast<Player *>(players.at(i)))->update();
-	}
+	currentScene->update();
 }
 
 void Game::updatePhysics(float dt) {
-	for (int i = 0; i < players.size(); i++) {
-		(dynamic_cast<Player *>(players.at(i)))->updatePhysics(dt);
-	}
+	currentScene->updatePhysics(dt);
 }
 
 void Game::processEvents() {
@@ -95,9 +86,14 @@ void Game::processEvents() {
 void Game::render() {
 	clear();
 	// TODO: all rendering goes here
-	for (int i = 0; i < players.size(); i++) {
-		//draw(level.at(loadedlevelindex));
-		draw(*players.at(i));
-	}
+	draw(*currentScene);
 	display();
+}
+
+Scene * Game::getCurrentScene() {
+	return currentScene;
+}
+
+void Game::setCurrentScene(Scene *scene) {
+	currentScene = scene;
 }

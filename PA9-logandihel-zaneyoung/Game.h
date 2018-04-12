@@ -10,6 +10,8 @@
 #include <vector>
 #include "Car.h"
 #include "LocalPlayer.h"
+#include "Scene.h"
+#include "SplashScene.h"
 
 /*
 DEBUG MODE
@@ -36,19 +38,25 @@ public:
 		sf::RenderWindow(sf::VideoMode(width, height), title) {
 		this->targetFPS = fps;
 		this->title = title;
-		this->sm = nullptr;
+
+		scenes.push_back(new SplashScene());
+		currentScene = scenes[0];
 	}
 	~Game();
-
 	void start();
 
+	// this returns a pointer
+	Scene * getCurrentScene();
+	// this accepts a pointer
+	void setCurrentScene(Scene *scene);
+
 private:
-	SocketManager *sm;
 	int targetFPS;
 	int width;
 	int height;
 	string title;
-	vector<sf::Drawable *> players;
+	Scene *currentScene;
+	vector <Scene *> scenes;
 	
 	void updatePhysics(float dt);
 	void update();
