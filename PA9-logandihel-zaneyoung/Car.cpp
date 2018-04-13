@@ -7,9 +7,10 @@ void Car::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void Car::updatePhysics(float dt) {
 	chasis->updatePhysics(dt);
+
 	for (int i = 0; i < 4; i++) {
 		if (wheels[i] != nullptr) {
-			wheels[i]->updatePhysics(dt);
+			wheels[i]->calculateForce(chasis->pointVelocity(wheels[i]->getRelPosition()), dt);
 		}
 	}
 }
@@ -77,4 +78,14 @@ sf::Vector2f Wheel::calculateForce(sf::Vector2f &relativeGroundSpeed, float dt) 
 	sf::Vector2f forwardVel;
 
 	return patchSpeed;
+}
+
+void Wheel::addTransmissionTorque(float torque) {}
+
+float Wheel::getWheelSpeed() {
+	return w_speed;
+}
+
+sf::Vector2f Wheel::getRelPosition() {
+	return w_relPosition;
 }

@@ -47,13 +47,12 @@ private:
 	RigidBody *chasis;
 };
 
-class Wheel : public RigidBody {
+class Wheel {
 
 	friend class Car;
 
 public:
-	Wheel(sf::Vector2f &relPosition, float radius)
-		: RigidBody() {}
+	Wheel(sf::Vector2f &relPosition, float radius);
 
 	// angle is in degrees
 	void setSteeringAngle(float angle);
