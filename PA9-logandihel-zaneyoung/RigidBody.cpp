@@ -26,7 +26,6 @@ void RigidBody::updatePhysics(float dt) {
 		angularDrag *= -1;
 	}
 
-
 	acceleration = (force + linearDrag) / mass; // force is a vector
 
 	velocity += acceleration * dt;

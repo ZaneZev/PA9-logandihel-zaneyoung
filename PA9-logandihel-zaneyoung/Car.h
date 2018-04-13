@@ -15,7 +15,7 @@ public:
 		//chasis->setFillColor(sf::Color::Yellow);
 
 		texture = new sf::Texture;
-		if (!texture->loadFromFile("./sprites/deborean.png")) {
+		if (!texture->loadFromFile("./sprites/thunder-mcking.png")) {
 			cout << "could not load texture" << endl;
 		}
 

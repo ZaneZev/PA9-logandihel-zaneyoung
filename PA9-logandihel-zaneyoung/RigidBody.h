@@ -25,7 +25,7 @@ public:
 
 		mass = 1.0;
 		inertia = 60.0;
-		linearDragC = 0.0002;
+		linearDragC = 0.00015;
 	}
 
 	// https://www.gamedev.net/forums/topic/470497-2d-car-physics-tutorial/
