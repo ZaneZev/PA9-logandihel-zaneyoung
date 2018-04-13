@@ -10,11 +10,12 @@
 #include <vector>
 #include "Car.h"
 #include "LocalPlayer.h"
-#include "Scene.h"
-#include "SplashScene.h"
 #include "PlayScene.h"
+#include "SplashScene.h"
+#include "Scene.h"
+#include "MenuScene.h"
 
-/*
+/*z
 DEBUG MODE
 COMMENT OUT TO PUT
 INTO PRODUCTION MODE
@@ -37,7 +38,7 @@ Main game code will go inside the update() and render() methods
 class Game : public sf::RenderWindow {
 public:
 
-	Game(string title="", int width=800, int height=600, int fps=30) :
+	Game(string title="", int width=1920, int height=1080, int fps=30) :
 		sf::RenderWindow(sf::VideoMode(width, height), title) {
 		this->targetFPS = fps;
 		this->title = title;

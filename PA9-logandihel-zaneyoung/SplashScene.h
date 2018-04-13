@@ -1,8 +1,13 @@
 #pragma once
-#include "Scene.h"
-#include "SplashScreen.h"
 #include "PlayScene.h"
+#include "SplashScene.h"
+#include "Scene.h"
+#include "MenuScene.h"
 #include "Game.h"
+#include "PlayScene.h"
+#include "SplashScene.h"
+#include "Scene.h"
+#include "MenuScene.h"
 
 extern Scene * CurrentScene;
 class SplashScene : public Scene {
@@ -16,7 +21,7 @@ public:
 			text->setScale(sf::Vector2f(1 - ((float)(fCount - 45) / 45.0f), 1 - ((float)(fCount - 45) / 45.0f)));
 		}
 		if (fCount == (30*3)) {
-			CurrentScene = new PlayScene;
+			CurrentScene = new MenuScene;
 			delete this;
 		}
 

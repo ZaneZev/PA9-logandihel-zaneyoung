@@ -19,24 +19,30 @@ public:
 		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
 		text = new sf::Text();
 		text->setFont(font);
-		text->setCharacterSize(50);
-		text->setString(btnText);
-		updateTextPos();
+		text->setCharacterSize(10);
+		setText(btnText);
 	}
 	Button():RectangleShape() {
-		unPressedColor = sf::Color::White;
+		this->setSize(sf::Vector2f(1000, 200));
+		this->setPosition(sf::Vector2f(200, 200));
+		unPressedColor = sf::Color::Blue;
 		pressedColor = sf::Color(200, 200, 200, 255);
+		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
 		setFillColor(unPressedColor);
 		text = new sf::Text();
+		text->setColor(sf::Color::Red);
 		text->setFont(font);
-		text->setCharacterSize(50);
-		text->setString("PLACE HOLDER");
-		updateTextPos();
+		text->setCharacterSize(30);
+		setText("PLACE HOLDER");
 	}
 	~Button() {}
 	void setText(string newText) {
 		text->setString(newText);
 		updateTextPos();
+	}
+	void addToDraws(std::vector<sf::Drawable *> &drawables) {
+		cout << "I SHALL BE DRAWN!" << endl;
+		drawables.push_back(text);
 	}
 private:
 	sf::Font font;

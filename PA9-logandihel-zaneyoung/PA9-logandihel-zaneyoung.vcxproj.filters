@@ -2,21 +2,20 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="LocalPlayer.cpp" />
     <ClCompile Include="PA9-logandihel-zaneyoung.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="SocketManager.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Car.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="LocalPlayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RigidBody.h" />
@@ -24,12 +23,20 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="testing.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SplashScene.h" />
-    <ClInclude Include="SplashScreen.h" />
-    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Button.h">
       <Filter>buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +45,9 @@
   <ItemGroup>
     <Filter Include="buttons">
       <UniqueIdentifier>{a57a978c-61a6-405c-9bfe-adff184843ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{134324e7-03f7-4401-9715-ebcf8cbaac2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
