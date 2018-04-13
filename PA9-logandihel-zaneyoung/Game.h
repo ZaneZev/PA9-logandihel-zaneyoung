@@ -26,11 +26,6 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-#define NUM_SCENES 2
-typedef enum scenestate {
-	SPLASH_SCENE,
-	PLAY_SCENE
-} SceneState;
 
 /*
 Game.h
@@ -41,31 +36,23 @@ Main game code will go inside the update() and render() methods
 
 class Game : public sf::RenderWindow {
 public:
-	Game::Game(string title="", int width=800, int height=600, int fps=30) :
+
+	Game(string title="", int width=800, int height=600, int fps=30) :
 		sf::RenderWindow(sf::VideoMode(width, height), title) {
 		this->targetFPS = fps;
 		this->title = title;
-
-		scenes[SPLASH_SCENE] = new SplashScene();
-		scenes[PLAY_SCENE] = new PlayScene();
-		currentSceneState = PLAY_SCENE;
+		CurrentScene = new SplashScene;
 	}
 	~Game();
 	void start();
-
-	// returns at ENUM to which scene we're in
-	SceneState getCurrentSceneState();
-
-	// allows us to change the scene being updated and rendered
-	void setCurrentSceneState(SceneState state);
+	static void testStatic() { cout << "works" << endl; }
 
 private:
 	int targetFPS;
 	int width;
 	int height;
 	string title;
-	SceneState currentSceneState;
-	Scene* scenes[NUM_SCENES];
+	
 	
 	void updatePhysics(float dt);
 	void update();

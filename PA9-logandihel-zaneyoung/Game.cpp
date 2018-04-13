@@ -1,5 +1,7 @@
 #include "Game.h"
 
+//THIS IS GLOBAL TO EVERYTHING , i'm sorry.
+Scene * CurrentScene = nullptr;
 /*
 Public Functions
 */
@@ -65,11 +67,11 @@ void Game::loop() {
 
 void Game::update() {
 	processEvents();
-	scenes[currentSceneState]->update();
+	CurrentScene->update();
 }
 
 void Game::updatePhysics(float dt) {
-	scenes[currentSceneState]->updatePhysics(dt);
+	CurrentScene->updatePhysics(dt);
 }
 
 void Game::processEvents() {
@@ -85,14 +87,6 @@ void Game::processEvents() {
 void Game::render() {
 	clear();
 	// TODO: all rendering goes here
-	draw(*scenes[currentSceneState]);
+	draw(*CurrentScene);
 	display();
-}
-
-SceneState Game::getCurrentSceneState() {
-	return currentSceneState;
-}
-
-void Game::setCurrentSceneState(SceneState state) {
-	currentSceneState = state;
 }
