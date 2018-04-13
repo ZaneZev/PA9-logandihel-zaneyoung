@@ -28,8 +28,16 @@
     <ClInclude Include="SplashScene.h" />
     <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="Button.h">
+      <Filter>buttons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="buttons">
+      <UniqueIdentifier>{a57a978c-61a6-405c-9bfe-adff184843ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
