@@ -73,9 +73,15 @@ sf::Vector2f Wheel::calculateForce(sf::Vector2f &relativeGroundSpeed, float dt) 
 	// calculate velocity difference (for acceleration purposes)
 	sf::Vector2f velDifference = relativeGroundSpeed + patchSpeed;
 
-	// calculate effective velocities
+	// TODO calculate effective velocities
+	float forwardMag = 0;
 	sf::Vector2f sideVel;
 	sf::Vector2f forwardVel;
+
+	// update torques and angular physics stuffs
+	w_torque += forwardMag * w_radius;
+	w_speed += w_torque / w_inertia * dt;
+	w_torque = 0;
 
 	return patchSpeed;
 }
