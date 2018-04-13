@@ -8,17 +8,21 @@ void LocalPlayer::update() {
 
 void LocalPlayer::updatePhysics(float dt) {
 
-	if (rightIsPressed) {
+	if (upIsPressed) {
 		car->driveForward();
 	}
+	else if (downIsPressed) {
+		car->driveBackward();
+	}
+
 	if (leftIsPressed) {
 		car->turnLeft();
 	}
-	if (upIsPressed) {
+	else if (rightIsPressed) {
 		car->turnRight();
 	}
-	if (downIsPressed) {
-		car->driveBackward();
+	else {
+		car->turnLeft(0); // reset turning
 	}
 
 	car->updatePhysics(dt);

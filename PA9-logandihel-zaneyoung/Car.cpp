@@ -8,24 +8,26 @@ void Car::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 void Car::updatePhysics(float dt) {
 	chasis->updatePhysics(dt);
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 2; i++) {
 		if (wheels[i] != nullptr) {
-			wheels[i]->calculateForce(chasis->pointVelocity(wheels[i]->getRelPosition()), dt);
+			chasis->addForce(wheels[i]->calculateForce(chasis->pointVelocity(wheels[i]->getRelPosition()), dt), wheels[i]->getRelPosition());
 		}
 	}
 }
 
 // TODO fill these in correctly
 void Car::driveForward() {
-	chasis->addForce(sf::Vector2f(-1000, 0), sf::Vector2f(50, 50));
+	//chasis->addForce(sf::Vector2f(-1000, 0), sf::Vector2f(50, 50));
 }
 
 void Car::turnLeft(float angle) {
-	chasis->addForce(sf::Vector2f(1000, 0), sf::Vector2f(-50, 50));
+	//chasis->addForce(sf::Vector2f(1000, 0), sf::Vector2f(-50, 50));
+	wheels[0]->setSteeringAngle(-angle);
 }
 
 void Car::turnRight(float angle) {
-	chasis->addForce(sf::Vector2f(0, -1000));
+	//chasis->addForce(sf::Vector2f(0, -1000));
+	wheels[0]->setSteeringAngle(angle);
 }
 
 void Car::turbo(float turboPower) {
@@ -37,7 +39,7 @@ void Car::brake(float brakeTorque) {
 }
 
 void Car::driveBackward() {
-	chasis->addForce(sf::Vector2f(0, 1000));
+	//chasis->addForce(sf::Vector2f(0, 1000));
 }
 
 /*
@@ -68,16 +70,25 @@ void Wheel::setSteeringAngle(float angle) {
 sf::Vector2f Wheel::calculateForce(sf::Vector2f &relativeGroundSpeed, float dt) {
 
 	// calculate ground speed of tire
-	sf::Vector2f patchSpeed = -w_forwardAxis * w_speed * w_radius;
+	//sf::Vector2f patchSpeed = -w_forwardAxis * w_speed * w_radius;
 
 	// calculate velocity difference (for acceleration purposes)
-	sf::Vector2f velDifference = relativeGroundSpeed + patchSpeed;
+	//sf::Vector2f velDifference = relativeGroundSpeed + patchSpeed;
 
-	// calculate effective velocities
-	sf::Vector2f sideVel;
-	sf::Vector2f forwardVel;
+	// TODO calculate effective velocities
+	//float forwardMag = 0;
+	//sf::Vector2f sideVel;
+	//sf::Vector2f forwardVel;
 
-	return patchSpeed;
+	// update torques and angular physics stuffs
+	//w_torque += forwardMag * w_radius;
+	//w_speed += w_torque / w_inertia * dt;
+	//w_torque = 0;
+
+	//return patchSpeed;
+
+
+	return w_forwardAxis;
 }
 
 void Wheel::addTransmissionTorque(float torque) {}
