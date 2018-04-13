@@ -10,7 +10,6 @@ void Scene::update() {
 }
 
 void Scene::updatePhysics(float dt) {
-
 }
 
 void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {

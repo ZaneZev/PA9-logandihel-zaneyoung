@@ -12,6 +12,7 @@
 #include "LocalPlayer.h"
 #include "Scene.h"
 #include "SplashScene.h"
+#include "PlayScene.h"
 
 /*
 DEBUG MODE
@@ -46,7 +47,8 @@ public:
 		this->title = title;
 
 		scenes[SPLASH_SCENE] = new SplashScene();
-		currentSceneState = SPLASH_SCENE;
+		scenes[PLAY_SCENE] = new PlayScene();
+		currentSceneState = PLAY_SCENE;
 	}
 	~Game();
 	void start();

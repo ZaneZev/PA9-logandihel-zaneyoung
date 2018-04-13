@@ -65,7 +65,6 @@ void Game::loop() {
 
 void Game::update() {
 	processEvents();
-
 	scenes[currentSceneState]->update();
 }
 

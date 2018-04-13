@@ -17,8 +17,7 @@ public:
 	Player(string name = "") : sf::Drawable() { 
 		this->name.setString(name);
 		this->name.setOutlineColor(sf::Color::White);
-		car = new Car(*(new sf::Vector2f(100, 100)), sf::Color::Yellow, *(new sf::Vector2f(30, 60)));
-		this->name.setPosition(car->getPosition());
+		car = new Car(*(new sf::Vector2f(200, 200)), sf::Color::Yellow, *(new sf::Vector2f(60, 120)));
 	}
 
 	virtual ~Player();

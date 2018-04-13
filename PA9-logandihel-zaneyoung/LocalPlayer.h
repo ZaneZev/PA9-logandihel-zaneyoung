@@ -5,7 +5,15 @@
 
 class LocalPlayer : public Player {
 public:
-	LocalPlayer(string name = "") : Player(name) {}
+	LocalPlayer(string name = "") : Player(name) 
+	{
+		leftIsPressed = false;
+		rightIsPressed = false;
+		upIsPressed = false;
+		rightIsPressed = false;
+		downIsPressed = false;
+		shiftIsPressed = false;
+	}
 
 	// override
 	void update();
