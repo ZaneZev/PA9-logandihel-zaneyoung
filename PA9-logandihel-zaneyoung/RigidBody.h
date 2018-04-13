@@ -8,8 +8,8 @@ public:
 		: sf::RectangleShape(size)
 	{
 		setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
-		setOutlineColor(sf::Color(100, 100, 100));
-		setOutlineThickness(1);
+		//setOutlineColor(sf::Color(100, 100, 100));
+		//setOutlineThickness(1);
 		setPosition(pos);
 
 		acceleration = sf::Vector2f(0, 0);
@@ -21,11 +21,11 @@ public:
 		angV = 0.0;
 		torque = 0.0;
 		angularDrag = 0.0;
-		angularDragC = 5;
+		angularDragC = 2;
 
 		mass = 1.0;
 		inertia = 60.0;
-		linearDragC = 0.005;
+		linearDragC = 0.0002;
 	}
 
 	// https://www.gamedev.net/forums/topic/470497-2d-car-physics-tutorial/

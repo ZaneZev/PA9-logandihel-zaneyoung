@@ -12,10 +12,10 @@ public:
 	{
 
 		chasis = new RigidBody(pos, size);
-		chasis->setFillColor(sf::Color::Yellow);
+		//chasis->setFillColor(sf::Color::Yellow);
 
 		texture = new sf::Texture;
-		if (!texture->loadFromFile("./sprites/first-car.png")) {
+		if (!texture->loadFromFile("./sprites/deborean.png")) {
 			cout << "could not load texture" << endl;
 		}
 
