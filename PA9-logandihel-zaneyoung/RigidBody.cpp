@@ -5,13 +5,35 @@ void RigidBody::addForce(sf::Vector2f &worldForce, sf::Vector2f &relativeOffset)
 	torque += crossProduct(worldForce, relativeOffset);
 }
 
+void RigidBody::addTorque(float torque) {
+	this->torque += torque;
+}
+
 void RigidBody::updatePhysics(float dt) {
-	acceleration = force / mass; // force is a vector
+
+	float magVel2 = pow(velocity.x, 2) + pow(velocity.y, 2);
+	if (magVel2 != 0) {
+		linearDrag = -velocity * magVel2 * linearDragC / sqrt(magVel2);
+	}
+	else {
+		linearDrag.x = 0;
+		linearDrag.y = 0;
+	}
+
+	// angular drag stuffs
+	angularDrag = -pow(angV, 2) * angularDragC;
+	if (angV < 0) {
+		angularDrag *= -1;
+	}
+
+
+	acceleration = (force + linearDrag) / mass; // force is a vector
+
 	velocity += acceleration * dt;
 	setPosition(getPosition() + velocity * dt);
 	force = sf::Vector2f(0, 0);
 
-	angA = torque / inertia; 
+	angA = (torque + angularDrag) / inertia; 
 	angV += angA * dt;
 	setRotation(getRotation() + angV * dt);
 	torque = 0;
