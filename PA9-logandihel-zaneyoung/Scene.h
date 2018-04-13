@@ -4,7 +4,6 @@
 #include <string>
 
 using std::string;
-
 // plz extend me
 class Scene : public sf::Drawable {
 

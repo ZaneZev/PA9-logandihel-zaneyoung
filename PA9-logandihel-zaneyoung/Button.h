@@ -10,7 +10,8 @@
 using std::string;
 class Button :public sf::RectangleShape{
 public:
-	Button(sf::Color unPressedColor, sf::Color pressedColor, string btnText, sf::Vector2f location,sf::Vector2f size):RectangleShape(){
+	Button(sf::Color unPressedColor, sf::Color pressedColor, string btnText, sf::Vector2f location,sf::Vector2f size,int id):RectangleShape(){
+		ID = id;
 		this->unPressedColor = unPressedColor;
 		this->pressedColor = pressedColor;
 		this->setPosition(location);
@@ -21,8 +22,11 @@ public:
 		text->setFont(font);
 		text->setCharacterSize(10);
 		setText(btnText);
+		clicked = false;
 	}
-	Button():RectangleShape() {
+	Button(string btnText,int id):RectangleShape() {
+
+		ID = id;
 		this->setSize(sf::Vector2f(1000, 200));
 		this->setPosition(sf::Vector2f(200, 200));
 		unPressedColor = sf::Color::Blue;
@@ -33,9 +37,12 @@ public:
 		text->setColor(sf::Color::Red);
 		text->setFont(font);
 		text->setCharacterSize(30);
-		setText("PLACE HOLDER");
+		setText(btnText);
+		clicked = false;
 	}
-	~Button() {}
+	~Button() {
+		delete text;
+	}
 	void setText(string newText) {
 		text->setString(newText);
 		updateTextPos();
@@ -44,7 +51,45 @@ public:
 		cout << "I SHALL BE DRAWN!" << endl;
 		drawables.push_back(text);
 	}
+	bool checkMouse(sf::Vector2i mousePos,bool leftClick) {
+		if (checkMousePos(mousePos)&&leftClick) {
+			cout << "ID : " << ID << " Mouse In , ?clicked , click" << endl;
+			if (clicked == false) {
+				clicked = true;
+				setFillColor(pressedColor);
+			}
+			return false;
+		}
+		if (leftClick && clicked) {
+			cout << "ID : " << ID << " Mouse out , clicked , click" << endl;
+			clicked = false;
+			setFillColor(unPressedColor);
+			return false;
+		}
+		if (checkMousePos(mousePos) && !leftClick&&clicked) {
+			cout << "ID : " << ID << " Mouse In , !clicked , click" << endl;
+			setFillColor(unPressedColor);
+			return true;
+		}
+		cout << "ID : " << ID << " hit no Ifs"<<endl;
+		return false;
+	}
+	bool checkMousePos(sf::Vector2i mousePos) {
+		if (mousePos.x>this->getPosition().x && mousePos.x<(this->getPosition().x + this->getSize().x)) {
+			if (mousePos.y>this->getPosition().y && mousePos.y<(this->getPosition().y + this->getSize().y)) {
+				return true;
+			}
+		}
+	}
+	bool isClicked() {
+		return clicked;
+	}
+	int getId() {
+		return ID;
+	}
 private:
+	bool clicked;
+	int ID;
 	sf::Font font;
 	sf::Text *text;
 	sf::Color unPressedColor;
