@@ -16,10 +16,13 @@ public:
 		// rendering properties
 		setOutlineColor(sf::Color::Blue);
 		setOutlineThickness(2.f);
+		setFillColor(sf::Color::Transparent);
 
 		acceleration = sf::Vector2f(0.f, 0.f);
 		velocity = sf::Vector2f(0.f, 0.f);
 		force = sf::Vector2f(0.f, 0.f);
+
+		updateUnitVectors();
 
 		mass = 1E4; // 1000 kg
 		inv_mass = 1 / mass;
@@ -27,7 +30,7 @@ public:
 		angA = 0;
 		angV = 0;
 		torque = 0;
-		inertia = 1E4; // total guess
+		inertia = 10; // total guess
 		inv_inertia = 1 / inertia;
 	}
 

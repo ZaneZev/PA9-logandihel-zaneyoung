@@ -86,6 +86,14 @@ void Game::processEvents() {
 		if (event.type == sf::Event::Closed) {
 			close(); // program over
 		}
+
+		// catch the resize events
+		if (event.type == sf::Event::Resized)
+		{
+			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+			sf::View *view = CurrentScene->getView();
+			view->reset(visibleArea);
+		}
 	}
 }
 

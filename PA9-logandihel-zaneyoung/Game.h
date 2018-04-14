@@ -42,6 +42,7 @@ public:
 		this->targetFPS = fps;
 		this->title = title;
 		CurrentScene = new SplashScene;
+		justResized = false;
 	}
 	~Game();
 	void start();
@@ -52,6 +53,7 @@ private:
 	int width;
 	int height;
 	string title;
+	bool justResized;
 	
 	void updatePhysics(float dt);
 	void update();

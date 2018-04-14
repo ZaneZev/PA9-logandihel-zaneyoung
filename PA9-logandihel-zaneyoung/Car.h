@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "testing.h"
-#include "RigidBody.h"
+#include "RigidBody2.h"
 
 #define PI 3.141592645
 
@@ -10,7 +10,7 @@ class Car : public sf::Drawable {
 public:
 	Car(sf::Vector2f &pos, sf::Color color, sf::Vector2f &size)
 	{
-		chasis = new RigidBody(pos, sf::Vector2f(size.x - 8, size.y - 8));
+		chasis = new RigidBody2(sf::Vector2f(size.x - 8, size.y - 8), pos);
 		//chasis->setFillColor(sf::Color::Yellow);
 		carBody = new sf::RectangleShape(size);
 
@@ -41,6 +41,6 @@ private:
 private:
 	sf::RectangleShape *carBody;
 	sf::Texture *texture;
-	RigidBody *chasis;
+	RigidBody2 *chasis;
 };
 
