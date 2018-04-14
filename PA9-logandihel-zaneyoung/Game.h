@@ -53,7 +53,6 @@ private:
 	int height;
 	string title;
 	
-	
 	void updatePhysics(float dt);
 	void update();
 	void processEvents();

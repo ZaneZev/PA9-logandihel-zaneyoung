@@ -10,13 +10,13 @@ protected:
 	
 public:
 	virtual void update() {
-		cout << fCount << endl;
+		//cout << fCount << endl;
 		fCount++;
 		if (fCount >= (15 * 3)) {
 			text->setScale(sf::Vector2f(1 - ((float)(fCount - 45) / 45.0f), 1 - ((float)(fCount - 45) / 45.0f)));
 		}
 		if (fCount == (30*3)) {
-			CurrentScene = new PlayScene;
+			CurrentScene = new PlayScene(sf::Vector2f(470*4, 280*4), "./sprites/racetrack1.png");
 			delete this;
 		}
 

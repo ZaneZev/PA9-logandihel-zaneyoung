@@ -22,7 +22,7 @@ void LocalPlayer::updatePhysics(float dt) {
 		car->turnRight();
 	}
 	else {
-		//car->turnLeft(0); // reset turning
+		// car->turnLeft(0);
 	}
 
 	car->updatePhysics(dt);

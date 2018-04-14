@@ -72,6 +72,11 @@ void Game::update() {
 
 void Game::updatePhysics(float dt) {
 	CurrentScene->updatePhysics(dt);
+	sf::View *newView = CurrentScene->getView();
+	if (newView != nullptr) {
+		this->setView(*newView);
+	}
+	
 }
 
 void Game::processEvents() {

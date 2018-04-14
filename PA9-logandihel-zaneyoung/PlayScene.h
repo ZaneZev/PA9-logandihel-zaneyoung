@@ -4,7 +4,7 @@
 
 class PlayScene : public Scene {
 public:
-	PlayScene() : Scene() 
+	PlayScene(sf::Vector2f &size, string filepath) : Scene(size, filepath) 
 	{
 		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
 		text = new sf::Text();
@@ -14,11 +14,15 @@ public:
 		text->setPosition(sf::Vector2f(200,200));
 		
 		lp = new LocalPlayer();
+		view = new sf::View();
+		view->zoom(0.5);
 
 		// remember that order matters! 
 		// what's pushed first is drawn first
+		drawables.push_back(background);
 		drawables.push_back(text);
 		drawables.push_back(lp);
+		//drawables.push_back(background);
 	}
 
 	void update()
@@ -29,6 +33,7 @@ public:
 	void updatePhysics(float dt)
 	{
 		lp->updatePhysics(dt);
+		view->setCenter(lp->getCar()->getPosition());
 	}
 
 private:

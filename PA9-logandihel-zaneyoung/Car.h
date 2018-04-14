@@ -15,7 +15,7 @@ public:
 		//chasis->setFillColor(sf::Color::Yellow);
 
 		texture = new sf::Texture;
-		if (!texture->loadFromFile("./sprites/thunder-mcking.png")) {
+		if (!texture->loadFromFile("./sprites/deborean.png")) {
 			cout << "could not load texture" << endl;
 		}
 
@@ -28,6 +28,8 @@ public:
 	void turbo(float turboPower = 20);
 	void brake(float brakeTorque = 100);
 	void driveBackward();
+
+	sf::Vector2f getPosition() { return chasis->getPosition(); }
 
 	//virtual ~Car();
 	void updatePhysics(float dt);

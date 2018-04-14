@@ -17,12 +17,14 @@ public:
 	Player(string name = "") : sf::Drawable() { 
 		this->name.setString(name);
 		this->name.setOutlineColor(sf::Color::White);
-		car = new Car(*(new sf::Vector2f(200, 200)), sf::Color::Yellow, *(new sf::Vector2f(60, 120)));
+		car = new Car(*(new sf::Vector2f(200, 200)), sf::Color::Yellow, *(new sf::Vector2f(16, 32)));
 	}
 
 	virtual ~Player();
 	virtual void update() = 0;
 	virtual void updatePhysics(float dt) = 0;
+
+	Car * getCar() { return car; }
 
 protected:
 	Car *car;

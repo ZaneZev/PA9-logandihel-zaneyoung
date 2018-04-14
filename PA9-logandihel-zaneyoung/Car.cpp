@@ -17,12 +17,12 @@ void Car::driveForward() {
 
 void Car::turnLeft(float angle) {
 	//chasis->addForce(sf::Vector2f(1000, 0), sf::Vector2f(-50, 50));
-	chasis->addTorque(-1E5);
+	chasis->addTorque(-5E4);
 }
 
 void Car::turnRight(float angle) {
 	//chasis->addForce(sf::Vector2f(-1000, 0), sf::Vector2f(50, 50));
-	chasis->addTorque(1E5);
+	chasis->addTorque(5E4);
 }
 
 void Car::turbo(float turboPower) {
