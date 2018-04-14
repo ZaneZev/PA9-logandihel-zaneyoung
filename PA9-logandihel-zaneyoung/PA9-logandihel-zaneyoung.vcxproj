@@ -158,6 +158,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="RigidBody2.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SocketManager.h" />
     <ClInclude Include="SplashScreen.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="PA9-logandihel-zaneyoung.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RigidBody2.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SocketManager.cpp" />
     <ClCompile Include="SplashScreen.cpp" />

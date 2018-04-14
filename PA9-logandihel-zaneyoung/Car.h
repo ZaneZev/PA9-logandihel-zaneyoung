@@ -10,16 +10,17 @@ class Car : public sf::Drawable {
 public:
 	Car(sf::Vector2f &pos, sf::Color color, sf::Vector2f &size)
 	{
-
-		chasis = new RigidBody(pos, size);
+		chasis = new RigidBody(pos, sf::Vector2f(size.x - 8, size.y - 8));
 		//chasis->setFillColor(sf::Color::Yellow);
+		carBody = new sf::RectangleShape(size);
 
 		texture = new sf::Texture;
 		if (!texture->loadFromFile("./sprites/deborean.png")) {
 			cout << "could not load texture" << endl;
 		}
 
-		chasis->setTexture(texture);
+		carBody->setTexture(texture);
+		carBody->setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
 	}
 
 	void driveForward();
@@ -38,6 +39,7 @@ private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 private:
+	sf::RectangleShape *carBody;
 	sf::Texture *texture;
 	RigidBody *chasis;
 };

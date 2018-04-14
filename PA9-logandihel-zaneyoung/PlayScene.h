@@ -33,6 +33,7 @@ public:
 	void updatePhysics(float dt)
 	{
 		lp->updatePhysics(dt);
+		// center on the car(s)
 		view->setCenter(lp->getCar()->getPosition());
 	}
 

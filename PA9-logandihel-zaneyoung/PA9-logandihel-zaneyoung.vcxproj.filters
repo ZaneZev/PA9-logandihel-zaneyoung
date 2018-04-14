@@ -12,10 +12,10 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="RigidBody2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Car.h" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="LocalPlayer.h" />
     <ClInclude Include="Player.h" />
@@ -28,6 +28,8 @@
     <ClInclude Include="SplashScene.h" />
     <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="RigidBody2.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
