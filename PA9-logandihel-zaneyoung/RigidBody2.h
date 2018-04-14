@@ -24,7 +24,7 @@ public:
 
 		updateUnitVectors();
 
-		mass = 1E4; // 1000 kg
+		mass = 1.5E4; // 3000 kg
 		inv_mass = 1 / mass;
 
 		angA = 0;

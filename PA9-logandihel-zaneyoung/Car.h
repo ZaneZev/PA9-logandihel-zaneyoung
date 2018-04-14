@@ -34,6 +34,8 @@ public:
 
 	//virtual ~Car();
 	void updatePhysics(float dt);
+	void start_drift();
+	void stop_drift();
 
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;

@@ -92,7 +92,9 @@ void Game::processEvents() {
 		{
 			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
 			sf::View *view = CurrentScene->getView();
-			view->reset(visibleArea);
+			if (view != nullptr) {
+				view->reset(visibleArea);
+			}
 		}
 	}
 }

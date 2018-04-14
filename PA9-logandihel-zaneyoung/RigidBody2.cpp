@@ -32,6 +32,11 @@ void RigidBody2::updatePhysics(float dt) {
 	acceleration = (force - linDrag) * inv_mass;
 	velocity += acceleration * dt;
 
+	// forwards friction
+	//velocity.x *= 0.9999f;
+	// side friction
+	//velocity.y *= 0.99f;
+
 	if (velocity.x != 0.f || velocity.y != 0.f) {
 		// accounts for the screen coordinates flipping the up axis
 		setPosition(getPosition() + (up * velocity.x + right * velocity.y) * dt);
@@ -39,7 +44,7 @@ void RigidBody2::updatePhysics(float dt) {
 
 	// angular drag forces
 	// sets max rotations/sec
-	float angDrag = angV * angV * 0.1 * (angV > 0 ? 1: -1);
+	float angDrag = angV * angV * 0.01 * (angV > 0 ? 1: -1);
 
 	// angular movement
 	angA = (torque - angDrag) * inv_inertia;

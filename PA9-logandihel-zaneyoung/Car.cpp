@@ -44,3 +44,11 @@ void Car::driveBackward() {
 	//double a = chasis->getRotation() * PI / 180.f;
 	chasis->addForce(sf::Vector2f(-5E6, 0.f));
 }
+
+void Car::start_drift() {
+	// not sure what to do
+}
+
+void Car::stop_drift() {
+	// not sure what to do
+}
