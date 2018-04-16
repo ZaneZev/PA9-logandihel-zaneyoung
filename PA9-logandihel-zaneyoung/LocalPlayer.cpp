@@ -22,8 +22,16 @@ void LocalPlayer::updatePhysics(float dt) {
 		car->turnRight();
 	}
 	else {
-		//car->turnLeft(0); // reset turning
+		// car->turnLeft(0);
 	}
+
+	if (shiftIsPressed) {
+		car->start_drift();
+	}
+	else {
+		car->stop_drift();
+	}
+
 
 	car->updatePhysics(dt);
 }

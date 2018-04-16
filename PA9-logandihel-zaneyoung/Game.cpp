@@ -72,6 +72,11 @@ void Game::update() {
 
 void Game::updatePhysics(float dt) {
 	CurrentScene->updatePhysics(dt);
+	sf::View *newView = CurrentScene->getView();
+	if (newView != nullptr) {
+		this->setView(*newView);
+	}
+	
 }
 
 void Game::processEvents() {
@@ -80,6 +85,16 @@ void Game::processEvents() {
 	{
 		if (event.type == sf::Event::Closed) {
 			close(); // program over
+		}
+
+		// catch the resize events
+		if (event.type == sf::Event::Resized)
+		{
+			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+			sf::View *view = CurrentScene->getView();
+			if (view != nullptr) {
+				view->reset(visibleArea);
+			}
 		}
 	}
 }

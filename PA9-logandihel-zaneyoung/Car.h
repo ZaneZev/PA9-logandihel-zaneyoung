@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "testing.h"
-#include "RigidBody.h"
+#include "RigidBody2.h"
 
 #define PI 3.141592645
 
@@ -10,16 +10,17 @@ class Car : public sf::Drawable {
 public:
 	Car(sf::Vector2f &pos, sf::Color color, sf::Vector2f &size)
 	{
-
-		chasis = new RigidBody(pos, size);
+		chasis = new RigidBody2(sf::Vector2f(size.x - 8, size.y - 8), pos);
 		//chasis->setFillColor(sf::Color::Yellow);
+		carBody = new sf::RectangleShape(size);
 
 		texture = new sf::Texture;
-		if (!texture->loadFromFile("./sprites/thunder-mcking.png")) {
+		if (!texture->loadFromFile("./sprites/deborean.png")) {
 			cout << "could not load texture" << endl;
 		}
 
-		chasis->setTexture(texture);
+		carBody->setTexture(texture);
+		carBody->setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
 	}
 
 	void driveForward();
@@ -29,14 +30,19 @@ public:
 	void brake(float brakeTorque = 100);
 	void driveBackward();
 
+	sf::Vector2f getPosition() { return chasis->getPosition(); }
+
 	//virtual ~Car();
 	void updatePhysics(float dt);
+	void start_drift();
+	void stop_drift();
 
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 private:
+	sf::RectangleShape *carBody;
 	sf::Texture *texture;
-	RigidBody *chasis;
+	RigidBody2 *chasis;
 };
 

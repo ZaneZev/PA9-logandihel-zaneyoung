@@ -9,9 +9,7 @@
     <ClCompile Include="SocketManager.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Car.cpp" />
-    <ClCompile Include="Scene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
+    <ClCompile Include="RigidBody2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Car.h" />
@@ -38,6 +36,12 @@
     <ClInclude Include="MenuScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SplashScene.h" />
+    <ClInclude Include="SplashScreen.h" />
+    <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="RigidBody2.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

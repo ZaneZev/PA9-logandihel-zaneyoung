@@ -21,7 +21,7 @@ public:
 			if (btn->checkMouse(mouseLoc, leftMouse)) {
 				switch (btn->getId()) {
 				case 0:
-					CurrentScene = new PlayScene;
+					CurrentScene = new PlayScene(sf::Vector2f(470 * 5, 280 * 5), "./sprites/racetrack1.png");
 					delete this;
 					return;
 				}

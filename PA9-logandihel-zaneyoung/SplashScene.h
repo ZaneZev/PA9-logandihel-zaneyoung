@@ -15,7 +15,6 @@ protected:
 	
 public:
 	virtual void update() {
-		cout << fCount << endl;
 		fCount++;
 		if (fCount >= (15 * 3)) {
 			text->setScale(sf::Vector2f(1 - ((float)(fCount - 45) / 45.0f), 1 - ((float)(fCount - 45) / 45.0f)));

@@ -9,6 +9,11 @@ void RigidBody::addTorque(float torque) {
 	this->torque += torque;
 }
 
+void RigidBody::addForceInRelativeDirection(float newForce) {
+	double a = getRotation() * 3.14159 / 180.f;
+	addForce(newForce * velocity);
+}
+
 void RigidBody::updatePhysics(float dt) {
 
 	float magVel2 = pow(velocity.x, 2) + pow(velocity.y, 2);
@@ -36,6 +41,8 @@ void RigidBody::updatePhysics(float dt) {
 	angV += angA * dt;
 	setRotation(getRotation() + angV * dt);
 	torque = 0;
+
+	cout << "Velocity.x: " << velocity.x << ", Velocity.y: " << velocity.y << endl;
 }
 
 // precondition: we have determined the force should interact with RigidBody instance
