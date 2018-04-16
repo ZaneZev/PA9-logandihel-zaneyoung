@@ -46,7 +46,6 @@ public:
 	}
 	~Game();
 	void start();
-	static void testStatic() { cout << "works" << endl; }
 
 private:
 	int targetFPS;
