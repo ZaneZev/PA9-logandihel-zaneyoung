@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "testing.h"
 #include "RigidBody2.h"
+#include "RigidBody.h"
 
 #define PI 3.141592645
 
@@ -11,6 +12,7 @@ public:
 	Car(sf::Vector2f &pos, sf::Color color, sf::Vector2f &size)
 	{
 		chasis = new RigidBody2(sf::Vector2f(size.x - 8, size.y - 8), pos);
+		//chasis = new RigidBody(pos, size);
 		//chasis->setFillColor(sf::Color::Yellow);
 		carBody = new sf::RectangleShape(size);
 

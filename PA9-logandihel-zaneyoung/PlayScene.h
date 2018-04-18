@@ -15,7 +15,7 @@ public:
 		
 		lp = new LocalPlayer();
 		view = new sf::View();
-		view->zoom(1);
+		//view->zoom(0.25);
 
 		// remember that order matters! 
 		// what's pushed first is drawn first

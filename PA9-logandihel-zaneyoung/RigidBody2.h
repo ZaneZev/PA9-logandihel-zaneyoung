@@ -14,9 +14,15 @@ public:
 		setPosition(pos);
 
 		// rendering properties
-		setOutlineColor(sf::Color::Blue);
+		//setOutlineColor(sf::Color::Blue);
 		setOutlineThickness(2.f);
 		setFillColor(sf::Color::Transparent);
+
+		up = sf::Vector2f(0, -1);
+		right = sf::Vector2f(1, 0);
+
+		forwards = up;
+		sideways = right;
 
 		acceleration = sf::Vector2f(0.f, 0.f);
 		velocity = sf::Vector2f(0.f, 0.f);
@@ -27,11 +33,8 @@ public:
 		mass = 1.5E4; // 3000 kg
 		inv_mass = 1 / mass;
 
-		angA = 0;
 		angV = 0;
 		torque = 0;
-		inertia = 10; // total guess
-		inv_inertia = 1 / inertia;
 	}
 
 	void updatePhysics(float dt);
@@ -87,6 +90,9 @@ private:
 	*/
 	sf::Vector2f up;
 	sf::Vector2f right;
+
+	sf::Vector2f forwards;
+	sf::Vector2f sideways;
 	
 	/* 
 		A = <Aup, Aright>
@@ -105,10 +111,6 @@ private:
 	/*
 	Rotational Movement
 	*/
-
-	float angA;
-	float angV;
 	float torque;
-	float inertia;
-	float inv_inertia;
+	float angV;
 };
