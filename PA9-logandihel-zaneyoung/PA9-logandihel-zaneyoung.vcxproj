@@ -164,6 +164,7 @@
     <ClInclude Include="SocketManager.h" />
     <ClInclude Include="SplashScene.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SVGParser.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="testing.h" />
   </ItemGroup>
@@ -178,6 +179,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SocketManager.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="SVGParser.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

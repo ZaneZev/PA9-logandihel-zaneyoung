@@ -10,6 +10,8 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="RigidBody2.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SVGParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Car.h" />
@@ -38,10 +40,10 @@
     </ClInclude>
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SplashScene.h" />
-    <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="RigidBody2.h" />
+    <ClInclude Include="SVGParser.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
