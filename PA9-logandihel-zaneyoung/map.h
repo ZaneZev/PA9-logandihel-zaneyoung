@@ -12,10 +12,13 @@ public:
 		for (G_Layer layer : svgp.glayers) {
 			for (SVGData block : layer.svgs) {
 				if (layer.id == "marker\">") {
-					collidables.push_back(new collidable(sf::Vector2f(block.height, block.width), sf::Vector2f(block.x, block.y), block.rotation, sf::Color::Transparent, false));
+					collidable * temp = new collidable(sf::Vector2f(block.width, block.height), sf::Vector2f(block.x, block.y), block.rotation, sf::Color::Transparent, false);
+					temp->setOutlineColor(sf::Color::Magenta);
+					temp->setOutlineThickness(5.f);
+					collidables.push_back(temp);
 				}
 				else if (layer.id == "solid\">") {
-					collidables.push_back(new collidable(sf::Vector2f(block.height, block.width), sf::Vector2f(block.x, block.y), block.rotation, sf::Color::Cyan, true));
+					collidables.push_back(new collidable(sf::Vector2f(block.width, block.height), sf::Vector2f(block.x, block.y), block.rotation, sf::Color::Cyan, true));
 				}
 				else
 					cout << "Nope" << endl;

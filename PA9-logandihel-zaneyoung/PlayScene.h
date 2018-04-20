@@ -4,6 +4,8 @@
 #include "map.h"
 #include "collisionHandler.h"
 #include <vector>
+extern sf::RenderWindow * gameObj;
+
 class PlayScene : public Scene {
 public:
 	PlayScene(sf::Vector2f &size, string filepath , map *theMap) : Scene(size, filepath) 
@@ -16,8 +18,8 @@ public:
 		text->setPosition(sf::Vector2f(200,200));
 		lp = new LocalPlayer();
 		hitHelper = new collisionHandler(theMap, { lp });
-		view = new sf::View();
-		//view->zoom(0.25);
+		view = new sf::View(sf::Vector2f(0,0), (sf::Vector2f)gameObj->getSize());
+		view->zoom(0.25);
 
 		// remember that order matters! 
 		// what's pushed first is drawn first

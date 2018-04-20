@@ -38,7 +38,7 @@ Main game code will go inside the update() and render() methods
 class Game : public sf::RenderWindow {
 public:
 
-	Game(string title="", int width=1000, int height=600, int fps=30) :
+	Game(string title="", int width=1000, int height=1000, int fps=30) :
 		sf::RenderWindow(sf::VideoMode(width, height), title) {
 		this->targetFPS = fps;
 		this->title = title;

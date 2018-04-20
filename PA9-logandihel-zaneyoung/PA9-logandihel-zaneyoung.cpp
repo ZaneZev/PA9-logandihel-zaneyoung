@@ -13,7 +13,7 @@ sf::RenderWindow * gameObj  = nullptr;
 
 int main()
 {
-	Game game("Nitro Knockoffs");
+	Game game("Nitro Knockoffs",1000,800,30);
 	gameObj = &game;
 	game.start();
 

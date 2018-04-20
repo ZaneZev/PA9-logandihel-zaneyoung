@@ -17,10 +17,10 @@ public:
 				if (c->getGlobalBounds().intersects(p->getCar()->getRigidBody()->getGlobalBounds())) {
 					if (c->solid) {
 						p->getCar()->getRigidBody()->velocity.x = -5.0f;
-						std::cout << "I HIT THE BIG BLUE BOX O' DOOOOOOOOM!" << std::endl;
+						//std::cout << "I HIT THE BIG BLUE BOX O' DOOOOOOOOM!" << std::endl;
 					}
 					else {
-						std::cout << "I HIT THE ETHERIAL THING OF THE GODS!" << endl;
+						//std::cout << "I HIT THE ETHERIAL THING OF THE GODS!" << endl;
 					}
 				}
 			}
