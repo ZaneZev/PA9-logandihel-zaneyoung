@@ -99,7 +99,9 @@ private:
 		V = <Vup, Vright>
 	*/
 	sf::Vector2f acceleration;
+public:
 	sf::Vector2f velocity;
+private:
 
 	// cumulative forces applied over frame
 	// are in the same direction as velocitiy vectors
