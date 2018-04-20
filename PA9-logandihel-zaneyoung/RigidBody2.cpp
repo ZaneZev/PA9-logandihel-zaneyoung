@@ -46,10 +46,10 @@ void RigidBody2::updatePhysics(float dt) {
 
 	// angular drag forces
 	// sets max rotations/sec
-	float angDrag = angV * angV * 0.01 * (angV > 0 ? 1: -1);
+	// float angDrag = angV * angV * 0.01 * (angV > 0 ? 1: -1);
 
 	// angular movement
-	angV = torque * dt;
+	angV = torque;
 
 	// also kill angular velocity pretty quickly
 	//angV *= 0.99;

@@ -6,9 +6,9 @@
 #include "Game.h"
 
 sf::RenderWindow * gameObj  = nullptr;
-extern "C"{
-	__declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
-}
+//extern "C"{
+//	__declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
+//}
 
 
 int main()
