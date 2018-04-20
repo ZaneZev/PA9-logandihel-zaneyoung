@@ -14,7 +14,7 @@ public:
 		setPosition(pos);
 
 		// rendering properties
-		//setOutlineColor(sf::Color::Blue);
+		setOutlineColor(sf::Color::Green);
 		setOutlineThickness(2.f);
 		setFillColor(sf::Color::Transparent);
 

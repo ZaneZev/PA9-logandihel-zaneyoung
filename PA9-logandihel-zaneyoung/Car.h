@@ -38,7 +38,10 @@ public:
 	void updatePhysics(float dt);
 	void start_drift();
 	void stop_drift();
-
+	RigidBody2 * getRigidBody() {
+		return chasis;
+	}
+	sf::RectangleShape* GetcarBody() { return carBody; }
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 

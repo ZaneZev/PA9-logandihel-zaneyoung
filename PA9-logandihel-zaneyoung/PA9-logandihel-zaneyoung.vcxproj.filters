@@ -44,6 +44,13 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="RigidBody2.h" />
     <ClInclude Include="SVGParser.h" />
+    <ClInclude Include="map.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="collidable.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="collisionHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,6 +61,9 @@
     </Filter>
     <Filter Include="Scenes">
       <UniqueIdentifier>{134324e7-03f7-4401-9715-ebcf8cbaac2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{59e58503-7823-4dd7-91e4-9a7f7680f870}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ void RigidBody2::updatePhysics(float dt) {
 	linDrag.x = velocity.x * velocity.x * 8 * (velocity.x > 0 ? 1 : -1);
 	linDrag.y = velocity.y * velocity.y * 8 * (velocity.y > 0 ? 1 : -1);
 
-	cout << linDrag.x << endl;
+	///cout << linDrag.x << endl;
 
 	// linear movement
 	acceleration = (force - linDrag) * inv_mass;

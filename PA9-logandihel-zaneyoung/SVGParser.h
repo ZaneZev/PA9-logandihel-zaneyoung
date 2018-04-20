@@ -23,11 +23,12 @@ typedef struct g_layer {
 } G_Layer;
 
 class SVGParser {
+
 public:
 	SVGParser(string filepath);
 	void parse();
+	vector<G_Layer> glayers;
 
 private:
 	ifstream infile;
-	vector<G_Layer> glayers;
 };
