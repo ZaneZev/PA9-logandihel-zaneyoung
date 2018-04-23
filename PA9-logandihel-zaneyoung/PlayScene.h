@@ -16,7 +16,7 @@ public:
 		text->setCharacterSize(50);
 		text->setString("Play Scene");
 		text->setPosition(sf::Vector2f(200,200));
-		lp = new LocalPlayer();
+		lp = new LocalPlayer(theMap->startBox->getPosition(),"");
 		hitHelper = new collisionHandler(theMap, { lp });
 		view = new sf::View(sf::Vector2f(0,0), (sf::Vector2f)gameObj->getSize());
 		view->zoom(0.25);
@@ -37,10 +37,11 @@ public:
 
 	void updatePhysics(float dt)
 	{
+		hitHelper->handleCollisions();
 		lp->updatePhysics(dt);
 		// center on the car(s)
 		view->setCenter(lp->getCar()->getPosition());
-		hitHelper->handleCollisions();
+		
 	}
 
 private:

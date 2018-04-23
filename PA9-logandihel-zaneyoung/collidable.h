@@ -13,3 +13,12 @@ public:
 		this->solid = solid;
 	}
 };
+
+class marker : public collidable {
+public:
+	marker * pNextMarker;
+	marker(sf::Vector2f size, sf::Vector2f pos, float rot, sf::Color color, bool solid) 
+		: collidable(size, pos, rot, color, solid) {
+		pNextMarker = nullptr;
+	}
+};

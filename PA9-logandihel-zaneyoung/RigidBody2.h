@@ -35,6 +35,7 @@ public:
 
 		angV = 0;
 		torque = 0;
+		wasInBlock = false;
 	}
 
 	void updatePhysics(float dt);
@@ -101,6 +102,7 @@ private:
 	sf::Vector2f acceleration;
 public:
 	sf::Vector2f velocity;
+	bool wasInBlock;
 private:
 
 	// cumulative forces applied over frame

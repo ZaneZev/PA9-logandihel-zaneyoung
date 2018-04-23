@@ -5,7 +5,7 @@
 
 class LocalPlayer : public Player {
 public:
-	LocalPlayer(string name = "") : Player(name) 
+	LocalPlayer(sf::Vector2f pos, string name = "") : Player(pos, name) 
 	{
 		leftIsPressed = false;
 		rightIsPressed = false;

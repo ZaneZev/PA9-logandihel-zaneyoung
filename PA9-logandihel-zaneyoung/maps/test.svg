@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg3723">
+  <defs
+     id="defs3717" />
+  <metadata
+     id="metadata3720">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="solid">
+    <rect
+       y="-0.21855311"
+       x="0.44493794"
+       height="937.92914"
+       width="7.5639477"
+       id="rect3808"
+       style="fill:#000000;stroke-width:0.26458332" />
+    <rect
+       y="-0.44102222"
+       x="4.0044417"
+       height="4.0044413"
+       width="421.13376"
+       id="rect3816"
+       style="fill:#000000;stroke-width:0.26458332" />
+    <rect
+       y="1.8877116"
+       x="409.00424"
+       height="944.48517"
+       width="5.0339098"
+       id="rect3818"
+       style="fill:#000000;stroke-width:0.26458332" />
+    <rect
+       y="925.60803"
+       x="0.44493791"
+       height="12.102517"
+       width="413.5932"
+       id="rect3820"
+       style="fill:#000000;stroke-width:0.26458332" />
+    <rect
+       y="195.06355"
+       x="159.19704"
+       height="548.06561"
+       width="117.03812"
+       id="rect3822"
+       style="fill:#000000;stroke-width:0.26458332" />
+  </g>
+  <g
+     id="marker">
+    <rect
+       y="451.79239"
+       x="269.31354"
+       height="16.989407"
+       width="156.05084"
+       id="rect3825"
+       style="fill:#00ff00;stroke-width:0.26458332" />
+    <rect
+       y="-27.057201"
+       x="210.16525"
+       height="233.44704"
+       width="22.652542"
+       id="rect3827"
+       style="fill:#00ff00;stroke-width:0.26458332" />
+    <rect
+       y="505.90677"
+       x="-39.641949"
+       height="23.911016"
+       width="208.90677"
+       id="rect3829"
+       style="fill:#00ff00;stroke-width:0.26458332" />
+    <rect
+       y="733.06146"
+       x="194.43431"
+       height="237.22246"
+       width="40.271183"
+       id="rect3831"
+       style="fill:#00ff00;stroke-width:0.26458332" />
+  </g>
+  <g
+     id="start">
+    <rect
+       y="487.02966"
+       x="338.52966"
+       height="17.618643"
+       width="7.5508471"
+       id="rect3866"
+       style="fill:#ff0000;stroke-width:0.26458332" />
+  </g>
+</svg>

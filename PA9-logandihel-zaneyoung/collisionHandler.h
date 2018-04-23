@@ -11,19 +11,56 @@ public:
 	}
 	void handleCollisions() {
 		//for (Player * p : players) {
+		
 		for(int i = 0; i<players.size();i++){
 			Player *p = players[i];
+
+			bool collided = false;
+			RigidBody2 *rb2 = p->getCar()->getRigidBody();
+			float bounce = 20.f;
+
+
 			for (collidable * c : map->collidables) {
 				if (c->getGlobalBounds().intersects(p->getCar()->getRigidBody()->getGlobalBounds())) {
+
 					if (c->solid) {
-						p->getCar()->getRigidBody()->velocity.x = -5.0f;
-						//std::cout << "I HIT THE BIG BLUE BOX O' DOOOOOOOOM!" << std::endl;
+						rb2->velocity.x = -bounce;
 					}
 					else {
-						//std::cout << "I HIT THE ETHERIAL THING OF THE GODS!" << endl;
+						//if(rb2->)
 					}
+					/*
+					if (c->solid) {
+						collided = true;
+						// is it going forwards?
+						if (rb2->velocity.x >= 0) {
+							// was it in the block?
+							if (rb2->wasInBlock) {
+								rb2->velocity.x = bounce;
+							}
+							else {
+								rb2->velocity.x = -bounce;
+							}
+						}
+						else {
+							// was it in the block?
+							if (rb2->wasInBlock) {
+								rb2->velocity.x = -bounce;
+							}
+							else {
+								rb2->velocity.x = bounce;
+							}
+						}
+					}
+					else {
+						// not a solid block
+					}
+					*/
 				}
 			}
+			/*
+			rb2->wasInBlock = collided;
+			*/
 			
 			for (int j = 0; j < players.size();j++) {
 				if (j != i) {
