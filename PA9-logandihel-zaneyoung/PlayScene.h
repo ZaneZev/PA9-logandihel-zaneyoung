@@ -16,8 +16,11 @@ public:
 		text->setCharacterSize(50);
 		text->setString("Play Scene");
 		text->setPosition(sf::Vector2f(200,200));
-		lp = new LocalPlayer(theMap->startBox->getPosition(),"");
-		hitHelper = new collisionHandler(theMap, { lp });
+		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(),"wasd","P1"));
+		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), "ijkl", "P2"));
+		for (Player * p : localPlayers)
+			players.push_back(p);
+		hitHelper = new collisionHandler(theMap, players);
 		view = new sf::View(sf::Vector2f(0,0), (sf::Vector2f)gameObj->getSize());
 		view->zoom(0.25);
 
@@ -25,28 +28,33 @@ public:
 		// what's pushed first is drawn first
 		drawables.push_back(background);
 		drawables.push_back(text);
-		drawables.push_back(lp);
+		for (Player * p : players)
+			drawables.push_back(p);
 		drawables.push_back(theMap);
 		//drawables.push_back(background);
 	}
 
 	void update()
 	{
-		lp->update();
+		for(Player * p:players)
+			p->update();
 	}
 
 	void updatePhysics(float dt)
 	{
 		hitHelper->handleCollisions();
-		lp->updatePhysics(dt);
-		// center on the car(s)
-		view->setCenter(lp->getCar()->getPosition());
+		for (Player * p : players) {
+			p->updatePhysics(dt);
+			// center on the car(s)
+			view->setCenter(p->getCar()->getPosition());
+		}
 		
 	}
 
 private:
 	collisionHandler * hitHelper;
-	LocalPlayer *lp;
+	vector<LocalPlayer *>localPlayers;
+	vector<Player *> players;
 	sf::Font font;
 	sf::Text *text;
 };
