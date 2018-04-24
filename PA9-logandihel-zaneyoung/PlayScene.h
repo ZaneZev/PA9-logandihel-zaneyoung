@@ -14,15 +14,19 @@ public:
 		text = new sf::Text();
 		text->setFont(font);
 		text->setCharacterSize(50);
-		text->setString("Play Scene");
-		text->setPosition(sf::Vector2f(200,200));
+		
 		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(),"wasd","P1"));
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition() + sf::Vector2f(32, 0), "ijkl", "P2"));
-		for (Player * p : localPlayers)
+	//	localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition() + sf::Vector2f(32, 0), "ijkl", "P2"));
+		for (Player * p : localPlayers) {
+			p->nextCheckpoint = theMap->pStart;
 			players.push_back(p);
+		}
 		hitHelper = new collisionHandler(theMap, players);
 		view = new sf::View(sf::Vector2f(0,0), (sf::Vector2f)gameObj->getSize());
 		view->zoom(0.75);
+		seconds = 0.f;
+		text->setOutlineColor(sf::Color::Black);
+		//sidebar = new RectangleShape();
 
 		// remember that order matters! 
 		// what's pushed first is drawn first
@@ -43,6 +47,11 @@ public:
 
 	void updatePhysics(float dt)
 	{
+
+		seconds += dt;
+		text->setString(std::to_string(seconds));
+		text->setPosition(view->getCenter() + sf::Vector2f(view->getSize().x/6.f, -view->getSize().y/2.f+50));
+
 		hitHelper->handleCollisions();
 		sf::Vector2f sumPos;
 		for (Player * p : players) {
@@ -60,4 +69,6 @@ private:
 	vector<Player *> players;
 	sf::Font font;
 	sf::Text *text;
+	sf::RectangleShape *sidebar;
+	float seconds;
 };

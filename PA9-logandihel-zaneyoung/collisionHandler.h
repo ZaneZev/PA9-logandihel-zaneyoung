@@ -27,7 +27,12 @@ public:
 						rb2->velocity.x = -bounce;
 					}
 					else {
-						//if(rb2->)
+						// we hit marker
+						//cout << "hit marker" << endl;
+						if (p->nextCheckpoint == c) {
+							p->nextCheckpoint = (dynamic_cast<marker *>(c))->pNextMarker;
+							p->incCheckpointsHit();
+						}
 					}
 					/*
 					if (c->solid) {

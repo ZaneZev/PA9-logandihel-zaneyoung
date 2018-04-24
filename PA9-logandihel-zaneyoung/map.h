@@ -4,14 +4,18 @@
 #include "SVGParser.h"
 #include <vector>
 
-class map :public sf::Drawable{
+class map : public sf::Drawable {
 public:
-	sf::RectangleShape * startBox = nullptr;
-	map(string filePath) {
+
+	marker *pStart = nullptr;
+	
+
+	map(string filePath) : sf::Drawable() {
+
+		startBox = nullptr;
 		SVGParser svgp(filePath);
 		svgp.parse();
 
-		marker *pStart = nullptr;
 		marker *pCur = nullptr;
 
 		for (G_Layer layer : svgp.glayers) {
@@ -60,6 +64,9 @@ public:
 		for (Drawable * it : drawables)
 			delete it;
 	}
+
+	sf::RectangleShape * startBox;
+
 private :
 	vector<sf::Drawable *> drawables;
 
