@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Game.h"
 #include "map.h"
+#include "CarSelectScene.h"
 
 extern Scene * CurrentScene;
 extern sf::RenderWindow * gameObj;
@@ -11,7 +12,7 @@ extern sf::RenderWindow * gameObj;
 class MenuScene :public Scene {
 public:
 	MenuScene() : Scene() {
-		Button * temp = new Button("Play", 0);
+		Button * temp = new Button(sf::Color(0, 255, 255, 255), sf::Color::Blue,sf::Color(100,255,255,255),"Play",sf::Vector2f(600,200),sf::Vector2f(((gameObj->getSize().x-600)/2), ((gameObj->getSize().y - 200) / 2)+150),0);
 		btns.push_back(temp);
 		drawables.push_back(temp);
 	}
@@ -22,7 +23,8 @@ public:
 			if (btn->checkMouse(mouseLoc, leftMouse)) {
 				switch (btn->getId()) {
 				case 0:
-					CurrentScene = new PlayScene(sf::Vector2f(4000, 2000), "./maps/racetrack2.png",new map("./maps/racetrack2.svg"));
+					//CurrentScene = new PlayScene(sf::Vector2f(4000, 2000), "./maps/racetrack2.png",new map("./maps/racetrack2.svg"));
+					CurrentScene = new CarSelectScene();
 					delete this;
 					return;
 				}

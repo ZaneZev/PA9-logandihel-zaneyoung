@@ -14,10 +14,10 @@ using std::string;
 
 class Player : public sf::Drawable {
 public:
-	Player(sf::Vector2f &pos,  string name = "") : sf::Drawable() { 
+	Player(sf::Vector2f &pos,string carPath ,string name = "" ) : sf::Drawable() { 
 		this->name.setString(name);
 		this->name.setOutlineColor(sf::Color::White);
-		car = new Car(pos, sf::Color::Yellow, *(new sf::Vector2f(16, 32)));
+		car = new Car(pos, sf::Color::Yellow, *(new sf::Vector2f(16, 32)),carPath);
 	}
 
 	virtual ~Player();

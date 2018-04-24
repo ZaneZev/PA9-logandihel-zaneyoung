@@ -5,7 +5,7 @@
 
 class LocalPlayer : public Player {
 public:
-	LocalPlayer(sf::Vector2f pos, string controlls="wasd",string name = "" ) : Player(pos, name)
+	LocalPlayer(sf::Vector2f pos, string carPath,string controlls="wasd",string name = "" ) : Player(pos, carPath, name)
 	{
 		for (int i = 0; i < controlls.length(); i++) {
 			controlls[i] -= 'a';

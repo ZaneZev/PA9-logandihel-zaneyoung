@@ -8,7 +8,7 @@ extern sf::RenderWindow * gameObj;
 
 class PlayScene : public Scene {
 public:
-	PlayScene(sf::Vector2f &size, string filepath , map *theMap) : Scene(size, filepath) 
+	PlayScene(sf::Vector2f &size, string filepath , map *theMap , string carPath) : Scene(size, filepath) 
 	{
 		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
 		text = new sf::Text();
@@ -16,8 +16,8 @@ public:
 		text->setCharacterSize(50);
 		text->setString("Play Scene");
 		text->setPosition(sf::Vector2f(200,200));
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(),"wasd","P1"));
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), "ijkl", "P2"));
+		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "wasd", "P1"));
+		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "ijkl", "P2"));
 		for (Player * p : localPlayers)
 			players.push_back(p);
 		hitHelper = new collisionHandler(theMap, players);

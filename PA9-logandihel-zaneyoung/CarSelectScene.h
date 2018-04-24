@@ -22,8 +22,23 @@ public:
 		int counter = 0;
 		for (string carName : cars) {
 			string spriteString = "./sprites/" + carName + ".png";
-			btns.pop_back(new Button(spriteString, carName,sf::Vector2f(0,0),1.f, counter));
+			carPaths.push_back(spriteString);
+			cout << "CAR : " << spriteString << endl;
+			btns.push_back(new Button(spriteString, carName,sf::Vector2f(200,200),5.f, counter));
 			counter++;
+		}
+		float spacex = 50.f;
+		float spacey = 50.f;
+		sf::Vector2f pos(200, 200);
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < btns.size() / 2; j++) {
+				btns[i*(btns.size() / 2) + j]->rect->setPosition(pos + sf::Vector2f(j*(spacex + btns[i]->rect->getGlobalBounds().width) , i*(spacey + btns[i]->rect->getGlobalBounds().height)));
+				cout << "car " << j << " , " << i << " : " << btns[i*(btns.size() / 2) + j]->rect->getPosition().x << " , " << btns[i*(btns.size() / 2) + j]->rect->getPosition().x << endl;
+				btns[i*(btns.size() / 2) + j]->updateTextPos();
+			}
+		}
+		for (Button * btn : btns) {
+			drawables.push_back(btn);
 		}
 	}
 	virtual void update() {
@@ -31,12 +46,9 @@ public:
 		bool leftMouse = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
 		for (Button * btn : btns) {
 			if (btn->checkMouse(mouseLoc, leftMouse)) {
-				switch (btn->getId()) {
-				case 0:
-					CurrentScene = new PlayScene(sf::Vector2f(4000, 2000), "./maps/racetrack2.png", new map("./maps/racetrack2.svg"));
-					delete this;
-					return;
-				}
+				CurrentScene = new PlayScene(sf::Vector2f(4000, 2000), "./maps/racetrack2.png", new map("./maps/racetrack2.svg"), carPaths[btn->getId()]);
+				delete this;
+				return;
 			}
 		}
 	}
@@ -46,5 +58,6 @@ public:
 		}
 	}
 private:
+	std::vector<string> carPaths;
 	std::vector<Button *> btns;
 };
