@@ -16,13 +16,14 @@ public:
 		text->setCharacterSize(50);
 		text->setString("Play Scene");
 		text->setPosition(sf::Vector2f(200,200));
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(),"wasd","P1"));
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition() + sf::Vector2f(32,0), "ijkl", "P2"));
-		for (Player * p : localPlayers)
+		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(),theMap,"wasd","P1"));
+		// localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition() + sf::Vector2f(32,0), "ijkl", "P2"));
+		for (Player * p : localPlayers) {
 			players.push_back(p);
+		}
 		hitHelper = new collisionHandler(theMap, players);
 		view = new sf::View(sf::Vector2f(0,0), (sf::Vector2f)gameObj->getSize());
-	//	view->zoom(0.25);
+		view->zoom(0.75);
 
 		// remember that order matters! 
 		// what's pushed first is drawn first
@@ -57,9 +58,14 @@ public:
 	void updatePhysics(float dt)
 	{
 		hitHelper->handleCollisions();
+		sf::Vector2f sumPos;
 		for (Player * p : players) {
 			p->updatePhysics(dt);
+			sumPos += p->getCar()->getPosition();
 		}
+	
+		sf::Vector2f avPos = sumPos / (float)players.size();
+		view->setCenter(avPos);
 	}
 
 private:

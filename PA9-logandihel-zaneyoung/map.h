@@ -6,14 +6,17 @@
 
 class map :public sf::Drawable{
 public:
+
+	marker *pStart = nullptr;
+	marker *pCur = nullptr;
+	vector<marker *> checkpoints;
 	sf::RectangleShape * startBox = nullptr;
+
+	// constructor
+
 	map(string filePath) {
 		SVGParser svgp(filePath);
 		svgp.parse();
-
-		marker *pStart = nullptr;
-		marker *pCur = nullptr;
-
 		for (G_Layer layer : svgp.glayers) {
 			for (SVGData block : layer.svgs) {
 				if (layer.id == "marker\">") {
@@ -29,6 +32,7 @@ public:
 						pCur->pNextMarker = temp;
 					}
 					pCur = temp;
+					checkpoints.push_back(pCur);
 				}
 				else if (layer.id == "solid\">") {
 					collidables.push_back(new collidable(sf::Vector2f(block.width, block.height), sf::Vector2f(block.x, block.y), block.rotation, sf::Color::Cyan, true));
@@ -43,7 +47,7 @@ public:
 			}
 		}
 
-		//pCur->pNextMarker = pStart; // circular list
+		pCur->pNextMarker = pStart; // circular list
 
 		for (collidable * it : collidables) {
 			drawables.push_back(it);

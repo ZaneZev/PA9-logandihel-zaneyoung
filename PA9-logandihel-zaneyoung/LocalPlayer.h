@@ -5,7 +5,7 @@
 
 class LocalPlayer : public Player {
 public:
-	LocalPlayer(sf::Vector2f pos, string controlls="wasd",string name = "" ) : Player(pos, name)
+	LocalPlayer(sf::Vector2f pos, map *theMap, string controlls="wasd",string name = "" ) : Player(pos, name)
 	{
 		for (int i = 0; i < controlls.length(); i++) {
 			controlls[i] -= 'a';
@@ -17,6 +17,9 @@ public:
 		rightIsPressed = false;
 		downIsPressed = false;
 		shiftIsPressed = false;
+
+		pMap = theMap;
+		setNextMarker(theMap->checkpoints.at(0));
 	}
 
 	// override
