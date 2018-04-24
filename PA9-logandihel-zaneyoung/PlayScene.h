@@ -3,6 +3,7 @@
 #include "LocalPlayer.h"
 #include "map.h"
 #include "collisionHandler.h"
+#include <SFML\Audio.hpp>
 #include <vector>
 extern sf::RenderWindow * gameObj;
 
@@ -20,10 +21,16 @@ public:
 		othertext->setFont(font);
 
 		timetext->setCharacterSize(50);
-		laptext->setCharacterSize(30);
-		othertext->setCharacterSize(30);
+		laptext->setCharacterSize(50);
+		othertext->setCharacterSize(50);
 
 		this->theMap = theMap;
+		raceIsLive = true;
+
+		music = new sf::Music();
+		if (music->openFromFile("./songs/blockrunner.wav")) {
+			music->play();
+		}
 		
 		
 		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(),"wasd","P1"));
@@ -55,36 +62,53 @@ public:
 
 	void update()
 	{
+		int maxLap = 0;
 		for (Player * p : players) {
 			p->update();
-			lap = (p->getCheckpointsHit()-1) / theMap->numCheckpoints + 1;
+			int l = (p->getCheckpointsHit() - 1) / theMap->numCheckpoints + 1;
+			if (l > maxLap) {
+				maxLap = l;
+			}
+		}
+		lap = maxLap;
+		// max laps
+		if (lap > 10) {
+			raceIsLive = false;
 		}
 	}
 
 	void updatePhysics(float dt)
 	{
+		if (raceIsLive) {
+			seconds += dt;
 
-		seconds += dt;
+			char buffer[7];
+			snprintf(buffer, 7, "%03.3f", seconds);
+			timetext->setString(buffer);
 
-		char buffer[7];
-		snprintf(buffer, 7, "%03.3f", seconds);
-		timetext->setString(buffer);
 
-		snprintf(buffer, 7, "Lap %d", lap);
-		laptext->setString(buffer);
+			snprintf(buffer, 7, "Lap %d", lap);
+			laptext->setString(buffer);
 
-		timetext->setPosition(view->getCenter() - view->getSize()/2.f);
-		laptext->setPosition(timetext->getPosition() + sf::Vector2f(300, 0));
+			timetext->setPosition(view->getCenter() - view->getSize() / 2.f);
+			laptext->setPosition(timetext->getPosition() + sf::Vector2f(300, 0));
 
-		hitHelper->handleCollisions();
-		sf::Vector2f sumPos;
-		for (Player * p : players) {
-			p->updatePhysics(dt);
-			// center on the car(s)
-			sumPos += p->getCar()->getPosition();
+			hitHelper->handleCollisions();
+			sf::Vector2f sumPos;
+			for (Player * p : players) {
+				p->updatePhysics(dt);
+				// center on the car(s)
+				sumPos += p->getCar()->getPosition();
+			}
+			view->setCenter(sumPos / (float)players.size());
 		}
-		view->setCenter(sumPos / (float)players.size());
-		
+		else {
+			for (Player * p : players) {
+				p->getCar()->updatePhysics(dt);
+				// let them all coast with no control
+			}
+			laptext->setString("Finish");
+		}
 	}
 
 private:
@@ -99,4 +123,8 @@ private:
 	sf::RectangleShape *sidebar;
 	float seconds;
 	int lap;
+	bool raceIsLive;
+
+	// music
+	sf::Music *music;
 };

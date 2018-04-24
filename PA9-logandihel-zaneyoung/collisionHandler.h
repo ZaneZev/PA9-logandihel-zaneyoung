@@ -73,6 +73,8 @@ public:
 			rb2->wasInBlock = collided;
 			*/
 			
+			// player collision
+			/*
 			for (int j = 0; j < players.size();j++) {
 				if (j != i) {
 					Player *op = players[j];
@@ -81,7 +83,7 @@ public:
 						std::cout << "I HIT ANOTHER DAMN CAR!" << std::endl;
 					}
 				}
-			}
+			}*/
 		}
 	}
 private:
