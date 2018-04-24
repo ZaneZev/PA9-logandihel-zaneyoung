@@ -17,7 +17,7 @@ public:
 		text->setString("Play Scene");
 		text->setPosition(sf::Vector2f(200,200));
 		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(),"wasd","P1"));
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), "ijkl", "P2"));
+		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition() + sf::Vector2f(32,0), "ijkl", "P2"));
 		for (Player * p : localPlayers)
 			players.push_back(p);
 		hitHelper = new collisionHandler(theMap, players);
@@ -37,8 +37,21 @@ public:
 
 	void update()
 	{
-		for(Player * p:players)
+		sf::Vector2f sumPos;
+		for (Player * p : players) {
 			p->update();
+			sumPos += p->getCar()->getPosition();
+		}
+
+		sf::Vector2f avPos = sumPos / (float)players.size();
+		view->setCenter(avPos);
+
+		/*sf::Vector2f pos = players.at(0)->getCar()->getPosition() - avPos;
+		float distanceSq = pos.x * pos.x + pos.y * pos.y;
+		float rSq = view->getSize().y * view->getSize().y;
+
+		view->zoom(distanceSq / (rSq));*/
+		//view->set
 	}
 
 	void updatePhysics(float dt)
@@ -46,10 +59,7 @@ public:
 		hitHelper->handleCollisions();
 		for (Player * p : players) {
 			p->updatePhysics(dt);
-			// center on the car(s)
-			view->setCenter(p->getCar()->getPosition());
 		}
-		
 	}
 
 private:
