@@ -22,16 +22,17 @@ public:
 			players.push_back(p);
 		hitHelper = new collisionHandler(theMap, players);
 		view = new sf::View(sf::Vector2f(0,0), (sf::Vector2f)gameObj->getSize());
-		view->zoom(0.25);
+	//	view->zoom(0.25);
 
 		// remember that order matters! 
 		// what's pushed first is drawn first
 		drawables.push_back(background);
-		drawables.push_back(text);
-		for (Player * p : players)
-			drawables.push_back(p);
 		drawables.push_back(theMap);
-		//drawables.push_back(background);
+		drawables.push_back(text);
+		for (Player * p : players) {
+			drawables.push_back(p);
+    }
+		drawables.push_back(theMap);
 	}
 
 	void update()
