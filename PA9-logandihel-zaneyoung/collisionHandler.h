@@ -17,14 +17,20 @@ public:
 
 			bool collided = false;
 			RigidBody2 *rb2 = p->getCar()->getRigidBody();
-			float bounce = 20.f;
+			float bounce = rb2->velocity.x * 1;
 
 
 			for (collidable * c : map->collidables) {
 				if (c->getGlobalBounds().intersects(p->getCar()->getRigidBody()->getGlobalBounds())) {
 
 					if (c->solid) {
-						rb2->velocity.x = -bounce;
+						if (rb2->velocity.x < 0) {
+							rb2->velocity.x = -bounce;
+						}
+						else {
+							rb2->velocity.x = -20.f;
+						}
+						
 					}
 					else {
 						// we hit marker

@@ -14,8 +14,8 @@ public:
 		setPosition(pos);
 
 		// rendering properties
-		setOutlineColor(sf::Color::Green);
-		setOutlineThickness(2.f);
+		//setOutlineColor(sf::Color::Green);
+		//setOutlineThickness(2.f);
 		setFillColor(sf::Color::Transparent);
 
 		up = sf::Vector2f(0, -1);
