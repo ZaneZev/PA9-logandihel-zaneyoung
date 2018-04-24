@@ -36,7 +36,7 @@ void LocalPlayer::updatePhysics(float dt) {
 	car->updatePhysics(dt);
 }
 
-void LocalPlayer::updateKeyboard() {
+void LocalPlayer::updateKeyboard() { 
 	upIsPressed = sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(controlls[0]));
 	downIsPressed = sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(controlls[2]));
 	leftIsPressed = sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(controlls[1]));
