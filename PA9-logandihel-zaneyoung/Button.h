@@ -24,6 +24,31 @@ public:
 		text->setCharacterSize(10);
 		setText(btnText);
 		clicked = false;
+		texture = nullptr;
+	}
+	Button(string spritePath,string btnText, sf::Vector2f location,float size, int id) :Drawable() {
+		ID = id;
+		this->unPressedColor = sf::Color(0,0,0,0);
+		this->pressedColor = sf::Color(0, 0, 0, 0);
+		this->hoverColor = sf::Color(0, 0, 0, 0);
+		this->rect = new sf::RectangleShape(location);
+		//this->rect->setSize(size);
+		texture = new sf::Texture;
+		if (!texture->loadFromFile("./sprites/deborean.png")) {
+			cout << "could not load texture" << endl;
+		}
+		rect->setTexture(texture);
+		rect->setSize(rect->getSize()*size);
+		//rect->setFillColor(unPressedColor);
+		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
+		text = new sf::Text();
+		text->setFont(font);
+		text->setCharacterSize(10);
+		setText(btnText);
+		clicked = false;
+
+		
+		
 	}
 	Button(string btnText,int id):Drawable() {
 
@@ -41,6 +66,7 @@ public:
 		text->setCharacterSize(30);
 		setText(btnText);
 		clicked = false;
+		texture = nullptr;
 	}
 	~Button() {
 		delete text;
@@ -55,19 +81,22 @@ public:
 			cout << "ID : " << ID << " Mouse In , ?clicked , click" << endl;
 			if (clicked == false) {
 				clicked = true;
-				rect->setFillColor(pressedColor);
+				if (texture == nullptr)
+					rect->setFillColor(pressedColor);
 			}
 			return false;
 		}
 		if (leftClick && clicked) {
 			cout << "ID : " << ID << " Mouse out , clicked , click" << endl;
 			clicked = false;
-			rect->setFillColor(unPressedColor);
+			if (texture == nullptr)
+				rect->setFillColor(unPressedColor);
 			return false;
 		}
 		if (checkMousePos(mousePos) && !leftClick&&clicked) {
 			cout << "ID : " << ID << " Mouse In , !clicked , click" << endl;
-			rect->setFillColor(unPressedColor);
+			if(texture == nullptr)
+				rect->setFillColor(unPressedColor);
 			return true;
 		}
 		if (checkMousePos(mousePos)) {
@@ -105,6 +134,7 @@ private:
 	sf::Color unPressedColor;
 	sf::Color pressedColor;
 	sf::Color hoverColor;
+	sf::Texture * texture;
 
 	//updates the position of the text inside of the rectangle, should happen automatically any time the text changes or the button position is changed
 	void updateTextPos() {
