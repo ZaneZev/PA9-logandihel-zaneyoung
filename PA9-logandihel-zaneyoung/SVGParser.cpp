@@ -36,7 +36,8 @@ void SVGParser::parse() {
 
 			if (buffer.substr(0, 3) != "y=\"") {
 				// transform="rotate(
-				rect.rotation = std::stof(buffer.substr(18, buffer.size() - 4));
+				if (buffer.substr(0,3) == "tra")
+					rect.rotation = std::stof(buffer.substr(18, buffer.size() - 4));
 				infile >> buffer; // y="###"
 			}
 			else {
@@ -56,6 +57,11 @@ void SVGParser::parse() {
 			}
 			infile >> buffer; // closing bracket
 			infile >> buffer; // for good luck
+
+			rect.y *= 4;
+			rect.width *= 4;
+			rect.x *= 4;
+			rect.height *= 4;
 
 			gl.svgs.push_back(rect);
 

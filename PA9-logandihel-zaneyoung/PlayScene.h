@@ -19,15 +19,15 @@ public:
 		lp = new LocalPlayer(theMap->startBox->getPosition(),"");
 		hitHelper = new collisionHandler(theMap, { lp });
 		view = new sf::View(sf::Vector2f(0,0), (sf::Vector2f)gameObj->getSize());
-		view->zoom(0.25);
+	//	view->zoom(0.25);
 
 		// remember that order matters! 
 		// what's pushed first is drawn first
 		drawables.push_back(background);
+		drawables.push_back(theMap);
 		drawables.push_back(text);
 		drawables.push_back(lp);
-		drawables.push_back(theMap);
-		//drawables.push_back(background);
+		
 	}
 
 	void update()

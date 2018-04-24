@@ -43,7 +43,7 @@ public:
 			}
 		}
 
-		pCur->pNextMarker = pStart; // circular list
+		//pCur->pNextMarker = pStart; // circular list
 
 		for (collidable * it : collidables) {
 			drawables.push_back(it);
