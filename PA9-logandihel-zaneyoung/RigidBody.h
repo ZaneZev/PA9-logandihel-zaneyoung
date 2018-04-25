@@ -1,4 +1,6 @@
-#pragma once
+#ifndef RIGIDBODY_H
+#define RIGIDBODY_H
+
 #include "testing.h"
 #include <SFML/Graphics.hpp>
 
@@ -57,3 +59,4 @@ protected:
 	float inertia;
 	float linearDragC;
 };
+#endif

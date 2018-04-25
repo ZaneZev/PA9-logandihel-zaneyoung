@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COLLISIONHANDLER_H
+#define COLLISIONHANDLER_H
 #include "collidable.h"
 #include "map.h"
 #include "LocalPlayer.h"
@@ -17,17 +18,28 @@ public:
 
 			bool collided = false;
 			RigidBody2 *rb2 = p->getCar()->getRigidBody();
-			float bounce = 20.f;
+			float bounce = rb2->velocity.x * 1;
 
 
 			for (collidable * c : map->collidables) {
 				if (c->getGlobalBounds().intersects(p->getCar()->getRigidBody()->getGlobalBounds())) {
 
 					if (c->solid) {
-						rb2->velocity.x = -bounce;
+						if (rb2->velocity.x < 0) {
+							rb2->velocity.x = -bounce;
+						}
+						else {
+							rb2->velocity.x = -20.f;
+						}
+						
 					}
 					else {
-						//if(rb2->)
+						// we hit marker
+						//cout << "hit marker" << endl;
+						if (p->nextCheckpoint == c) {
+							p->nextCheckpoint = (dynamic_cast<marker *>(c))->pNextMarker;
+							p->incCheckpointsHit();
+						}
 					}
 					/*
 					if (c->solid) {
@@ -62,6 +74,8 @@ public:
 			rb2->wasInBlock = collided;
 			*/
 			
+			// player collision
+			/*
 			for (int j = 0; j < players.size();j++) {
 				if (j != i) {
 					Player *op = players[j];
@@ -70,7 +84,7 @@ public:
 						std::cout << "I HIT ANOTHER DAMN CAR!" << std::endl;
 					}
 				}
-			}
+			}*/
 		}
 	}
 private:
@@ -78,3 +92,4 @@ private:
 	std::vector<Player *> players;
 
 };
+#endif

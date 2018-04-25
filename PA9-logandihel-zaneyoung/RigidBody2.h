@@ -1,4 +1,6 @@
-#pragma once
+#ifndef RIGIDBODY_H
+#define RIDIDBODY_H
+
 #include "testing.h"
 #include <SFML/Graphics.hpp>
 
@@ -14,8 +16,8 @@ public:
 		setPosition(pos);
 
 		// rendering properties
-		setOutlineColor(sf::Color::Green);
-		setOutlineThickness(2.f);
+		//setOutlineColor(sf::Color::Green);
+		//setOutlineThickness(2.f);
 		setFillColor(sf::Color::Transparent);
 
 		up = sf::Vector2f(0, -1);
@@ -118,3 +120,4 @@ private:
 	float torque;
 	float angV;
 };
+#endif

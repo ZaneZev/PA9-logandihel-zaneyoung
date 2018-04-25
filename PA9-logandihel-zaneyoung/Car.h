@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CAR_H
+#define CAR_H
+
 #include <SFML/Graphics.hpp>
 #include "testing.h"
 #include "RigidBody2.h"
@@ -50,4 +52,4 @@ private:
 	sf::Texture *texture;
 	RigidBody2 *chasis;
 };
-
+#endif

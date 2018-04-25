@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SCENE_H
+#define SCENE_H
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -31,3 +33,4 @@ private:
 	string name;
 	sf::Texture *texture;
 };
+#endif

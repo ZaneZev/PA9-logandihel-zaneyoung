@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LOCALPLAYER_H
+#define LOCALPLAYER_H
 #include "testing.h"
 #include <SFML/Window.hpp>
 #include "Player.h"
@@ -39,3 +40,4 @@ private:
 	bool downIsPressed;
 	bool shiftIsPressed;
 };
+#endif

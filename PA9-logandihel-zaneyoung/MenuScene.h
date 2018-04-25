@@ -1,10 +1,13 @@
-#pragma once
+#ifndef MENUSCENE_H
+#define MENUSCENE_H
+
 #include "Button.h"
 #include "testing.h"
 #include "Scene.h"
 #include "Game.h"
 #include "map.h"
 #include "CarSelectScene.h"
+#include "PlayScene.h"
 
 extern Scene * CurrentScene;
 extern sf::RenderWindow * gameObj;
@@ -39,3 +42,4 @@ public:
 private:
 	std::vector<Button *> btns;
 };
+#endif // MENUSCENE_H

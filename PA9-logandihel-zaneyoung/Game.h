@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
+
 #include "testing.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -61,3 +63,4 @@ private:
 	void render();
 	void loop();
 };
+#endif

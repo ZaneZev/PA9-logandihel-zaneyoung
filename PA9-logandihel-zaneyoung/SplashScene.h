@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SPLASHSCREEN_H
+#define SPLASHSCREEN_H
+
 #include "PlayScene.h"
 #include "SplashScene.h"
 #include "Scene.h"
@@ -43,3 +45,4 @@ private:
 	sf::Font font;
 	sf::Text *text;
 };
+#endif
