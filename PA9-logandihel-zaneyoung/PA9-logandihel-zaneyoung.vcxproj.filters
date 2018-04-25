@@ -26,16 +26,7 @@
     <ClInclude Include="Button.h">
       <Filter>buttons</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SplashScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h" />
@@ -51,7 +42,6 @@
       <Filter>Map</Filter>
     </ClInclude>
     <ClInclude Include="collisionHandler.h" />
-    <ClInclude Include="CarSelectScene.h" />
     <ClInclude Include="PauseMenu.h" />
   </ItemGroup>
   <ItemGroup>
