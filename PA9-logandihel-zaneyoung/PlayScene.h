@@ -7,10 +7,16 @@
 #include "collisionHandler.h"
 #include <SFML\Audio.hpp>
 #include <vector>
+#include <string>
+#include <fstream>
 #include "PauseMenu.h"
  
 extern sf::RenderWindow * gameObj;
 extern Scene * CurrentScene;
+
+using std::ofstream;
+using std::ifstream;
+using std::string;
 
 typedef enum playstate {
 	PLAYING = 0,
@@ -40,6 +46,26 @@ public:
 		laptext->setCharacterSize(50);
 		othertext->setCharacterSize(50);
 
+		bestScoreTime = 1E6; // bad time
+
+		try {
+			infile.open("bestscore.txt");
+			float bestscore = 0.f;
+			infile >> bestscore;
+			infile.close();
+
+			char buffer[15];
+			snprintf(buffer, 15, "Best: %3.3f", bestscore);
+			othertext->setString(buffer);
+
+			bestScoreTime = bestscore;
+
+		}
+		catch (std::exception &e) {
+			// could not read file
+			cout << "could not read file: " << "bestscore.txt" << endl;
+		}
+
 		lap = 1;
 		totalLaps = 2;
 
@@ -55,7 +81,6 @@ public:
 		for (Player * p : localPlayers) {
 			p->nextCheckpoint = theMap->pStart;
 			players.push_back(p);
-			cout << "p" << endl;
 		}
     
 		hitHelper = new collisionHandler(theMap, players);
@@ -118,7 +143,28 @@ public:
 			}
 			else {
 				// new highscore??
-				pm->message->setString("FINISH\n\nPress Q to Save and Quit");
+
+				string str;
+				string winner;
+				int maxChecks = 0;
+				for (Player * p : players) {
+					if (p->getCheckpointsHit() > maxChecks) {
+						winner = p->name;
+					}
+				}
+
+				if (seconds < bestScoreTime) {
+					str += "NEW HIGHSCORE\n\n";
+				}
+				else {
+					str += "FINISH\n\n";
+				}
+
+				str += winner + " WINS\n\n";
+				str += "Press Q to Quit";
+
+				pm->setMessage(str);
+				
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 					state = EXIT;
 				}
@@ -126,8 +172,19 @@ public:
 		}
 		else if (state == EXIT) {
 			// save high score
-			// display high score
-			// exit the program
+
+			if (seconds < bestScoreTime) {
+				// new high score
+				try {
+					outfile.open("bestscore.txt");
+					char buffer[8];
+					snprintf(buffer, 8, "%3.3f", seconds);
+					outfile.write(buffer, strlen(buffer));
+				}
+				catch (std::exception &e) {
+					cout << "could not save score" << endl;
+				}
+			}
 			exit(1);
 			// cry
 		}
@@ -147,7 +204,8 @@ public:
 			laptext->setString(buffer);
 
 			timetext->setPosition(view->getCenter() - view->getSize() / 2.f);
-			laptext->setPosition(timetext->getPosition() + sf::Vector2f(300, 0));
+			laptext->setPosition(timetext->getPosition() + sf::Vector2f(200, 0));
+			othertext->setPosition(laptext->getPosition() + sf::Vector2f(200, 0));
 
 			hitHelper->handleCollisions();
 			sf::Vector2f sumPos;
@@ -190,11 +248,17 @@ private:
 	int totalLaps;
 	PlayState state;
 
+	float bestScoreTime;
+
 	// pause menu
 	PauseMenu *pm;
 
 	// music
 	sf::Music *music;
+
+	// bestscore
+	ifstream infile;
+	ofstream outfile;
 };
 
 #endif

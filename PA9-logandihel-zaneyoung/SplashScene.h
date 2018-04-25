@@ -20,7 +20,7 @@ public:
 		fCount++;
 		if (fCount >= (15 * 3)) {
 			text->setScale(sf::Vector2f(1 - ((float)(fCount - 45) / 45.0f), 1 - ((float)(fCount - 45) / 45.0f)));
-			text->setRotation(fCount / 45.f * 360.f);
+			text->setRotation(-fCount / 45.f * 360.f);
 		}
 		if (fCount == (30*3)) {
 			CurrentScene = new MenuScene;
