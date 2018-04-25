@@ -49,6 +49,11 @@ public:
 		bestScoreTime = 1E6; // bad time
 
 		try {
+
+			float server_hs = sm.getHighscore();
+
+			cout << server_hs << endl;
+
 			infile.open("bestscore.txt");
 			float bestscore = 0.f;
 			infile >> bestscore;
@@ -58,7 +63,7 @@ public:
 			snprintf(buffer, 15, "Best: %3.3f", bestscore);
 			othertext->setString(buffer);
 
-			bestScoreTime = bestscore;
+			bestScoreTime = bestscore > server_hs ? bestscore : server_hs;
 
 		}
 		catch (std::exception &e) {
@@ -70,7 +75,7 @@ public:
 		totalLaps = 2;
 
 		state = PLAYING;
-
+		raceDone = false;
 		this->theMap = theMap;
 
 		music = new sf::Music();
@@ -123,6 +128,7 @@ public:
 			// race is finished
 			if (lap > totalLaps) {
 				state = FINISH;
+				raceDone = true;
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -172,19 +178,29 @@ public:
 		}
 		else if (state == EXIT) {
 			// save high score
-
-			if (seconds < bestScoreTime) {
-				// new high score
+			if (raceDone) {
 				try {
-					outfile.open("bestscore.txt");
-					char buffer[8];
-					snprintf(buffer, 8, "%3.3f", seconds);
-					outfile.write(buffer, strlen(buffer));
+					float besttimeever = seconds < bestScoreTime ? seconds : bestScoreTime;
+					sm.sendHighscore(besttimeever);
 				}
 				catch (std::exception &e) {
-					cout << "could not save score" << endl;
+					cout << "could not send the best time ever to the server" << endl;
+				}
+
+				if (seconds < bestScoreTime) {
+					// new high score
+					try {
+						outfile.open("bestscore.txt");
+						char buffer[8];
+						snprintf(buffer, 8, "%3.3f", seconds);
+						outfile.write(buffer, strlen(buffer));
+					}
+					catch (std::exception &e) {
+						cout << "could not save score" << endl;
+					}
 				}
 			}
+			
 			exit(1);
 			// cry
 		}
@@ -247,6 +263,7 @@ private:
 	int lap;
 	int totalLaps;
 	PlayState state;
+	bool raceDone;
 
 	float bestScoreTime;
 
@@ -259,6 +276,8 @@ private:
 	// bestscore
 	ifstream infile;
 	ofstream outfile;
+
+	SocketManager sm;
 };
 
 #endif

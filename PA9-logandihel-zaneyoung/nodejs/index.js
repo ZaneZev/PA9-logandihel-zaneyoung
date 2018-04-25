@@ -7,6 +7,7 @@
 
 var net = require('net');
 var server = new net.Server();
+var fs = require('fs');
 const port = 3000;
 
 var sockets = [];
@@ -24,8 +25,56 @@ server.on('connection', function(socket) {
 			sockets.push(socket);
 			socket.write("request_granted\u0000");
 		}
-		else {
+		else if (data == "bestscore_query") {
+			var bestscore = 1000000;
+			console.log("query besetscore");
+			//vhttps://docs.nodejitsu.com/articles/file-system/how-to-read-files-in-nodejs/
+			fs.readFile('./bestscore.txt', 'utf8', function (err,data) {
+			  if (err) {
+			    socket.write(bestscore+"\u0000");
+			    console.log("query fail");
+			    return;
+			  }
+			  bestscore = data;
+			  console.log("query happy");
+			  console.log(data);
+			  socket.write(bestscore+"\u0000");
+			});
+		}
+		else if (data.startsWith("newscore")) {
 			socket.write("request_denied\u0000");
+			var bestscore = 100000;
+			var localscore = data.substr(7);
+			console.log("localscore:"  + localscore);
+			fs.readFile('./bestscore.txt', 'utf8', function (err,data) {
+			  if (err) {
+			    socket.write(bestscore+"\u0000");
+			    console.log("query fail");
+			    return;
+			  }
+			  bestscore = data;
+			  console.log("read the file");
+			  console.log(bestscore);
+
+			  var bestever = "";
+			  if (bestscore < localscore) {
+			  		bestever = "" + bestscore;
+			  }
+			  else {
+			  	bestever = "" + localscore;
+			  }
+
+			  if (bestscore < localscore) {
+			  	fs.writeFile('./bestscore.txt', bestever, function (err,data) {
+			  		if (err) {
+			  			console.log("error in writing thing");
+			  			return;
+			  		}
+			  		console.log("wooot");
+			  	});
+			  }
+
+			});
 		}
 	});
 
