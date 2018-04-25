@@ -90,9 +90,8 @@ public:
 		}
 
 		lap = 1;
-		totalLaps = 2;
+		totalLaps = 3;
 
-		state = PLAYING;
 		raceDone = false;
 		this->theMap = theMap;
 
@@ -126,6 +125,7 @@ public:
 		}
 
 		drawables.push_back(pm);
+		state = PLAYING;
 	}
 
 	void update()
@@ -226,13 +226,15 @@ public:
 
 	void updatePhysics(float dt)
 	{
+
+		static float l1 = 0.f;
+
 		if (state == PLAYING) {
 			seconds += dt;
 
 			char buffer[7];
 			snprintf(buffer, 7, "%03.3f", seconds);
 			timetext->setString(buffer);
-
 
 			snprintf(buffer, 7, "Lap %d", lap);
 			laptext->setString(buffer);
@@ -243,12 +245,31 @@ public:
 
 			hitHelper->handleCollisions();
 			sf::Vector2f sumPos;
+
+			float maxLSq = 0.f;
+
+
 			for (Player * p : players) {
 				p->updatePhysics(dt);
 				// center on the car(s)
 				sumPos += p->getCar()->getPosition();
 			}
 			view->setCenter(sumPos / (float)players.size());
+
+			for (Player * p : players) {
+				sf::Vector2f dLF = view->getCenter() - p->getCar()->getPosition();
+				float L = dLF.x * dLF.x + dLF.y * dLF.y;
+
+				if (L > maxLSq) {
+					maxLSq = L;
+				}
+			}
+
+			float deltaL = sqrt(l1) - sqrt(maxLSq);
+			view->zoom(-deltaL * 0.00099f + 1.f);
+
+			l1 = maxLSq;
+
 		}
 		else if (state == PAUSE) {
 			cout << "paused" << endl;
