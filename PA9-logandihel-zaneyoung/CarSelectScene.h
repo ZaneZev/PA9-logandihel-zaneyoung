@@ -11,6 +11,7 @@ extern sf::RenderWindow * gameObj;
 class CarSelectScene :public Scene {
 public:
 	CarSelectScene(vector<string> PcarPaths,int numPlayers) :Scene(){
+		this->numPlayers = numPlayers;
 		this->PcarPaths = PcarPaths;
 		ifstream carList;
 		carList.open("./sprites/list.txt");
@@ -41,9 +42,10 @@ public:
 		for (Button * btn : btns) {
 			drawables.push_back(btn);
 		}
-		this->numPlayers--;
+		(this->numPlayers)--;
 	}
 	CarSelectScene(int numPlayers) :Scene() {
+		this->numPlayers = numPlayers;
 		ifstream carList;
 		carList.open("./sprites/list.txt");
 		vector<string> cars;
@@ -73,14 +75,17 @@ public:
 		for (Button * btn : btns) {
 			drawables.push_back(btn);
 		}
-		this->numPlayers--;
+		(this->numPlayers)--;
 	}
 	virtual void update() {
 		sf::Vector2i mouseLoc = sf::Mouse::getPosition(*gameObj);
 		bool leftMouse = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
 		for (Button * btn : btns) {
 			if (btn->checkMouse(mouseLoc, leftMouse)) {
-					PcarPaths.push_back(carPaths[btn->getId()]);
+				PcarPaths.push_back(carPaths[btn->getId()]);
+				for (string thing : PcarPaths)
+					cout << thing << endl;
+				cout << numPlayers << endl;
 				if (numPlayers == 0) {
 					CurrentScene = new PlayScene(sf::Vector2f(4000, 2000), "./maps/racetrack2.png", new map("./maps/racetrack2.svg"), PcarPaths);
 					delete this;

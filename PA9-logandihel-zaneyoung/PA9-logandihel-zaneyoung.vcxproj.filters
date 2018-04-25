@@ -53,6 +53,9 @@
     <ClInclude Include="collisionHandler.h" />
     <ClInclude Include="CarSelectScene.h" />
     <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="numPlayerSelectScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

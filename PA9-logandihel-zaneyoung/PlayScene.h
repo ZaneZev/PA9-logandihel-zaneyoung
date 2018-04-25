@@ -38,7 +38,7 @@ public:
 				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+ ((float)i*offset), carPaths[i], "tfgh", "P3"));
 				break;
 			case 3:
-				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+ ((float)i*offset), carPaths[i], "=[]\\", "P4"));
+				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+ ((float)i*offset), carPaths[i], "zxcv", "P4"));
 				break;
 			default:
 				break;
