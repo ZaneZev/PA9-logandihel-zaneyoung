@@ -36,6 +36,8 @@ public:
 		text->setString("Splash Screen!");
 		text->setPosition(sf::Vector2f(200, 200));
 
+		texture = new Texture;
+
 		// remember that order matters! 
 		// what's pushed first is drawn first
 		drawables.push_back(text);
@@ -44,5 +46,7 @@ private:
 	int fCount;
 	sf::Font font;
 	sf::Text *text;
+	sf::Texture *texture;
+	sf::RectangleShape *rect;
 };
 #endif
