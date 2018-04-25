@@ -19,6 +19,7 @@ using std::ifstream;
 using std::string;
 
 typedef enum playstate {
+	COUNTDOWN = -1,
 	PLAYING = 0,
 	PAUSE = 1,
 	FINISH = 2,
@@ -65,12 +66,18 @@ public:
 		othertext->setCharacterSize(50);
 
 		bestScoreTime = 1E6; // bad time
+		float server_hs = 1E6;
 
 		try {
+			server_hs = sm.getHighscore();
+		}
+		catch (std::exception &e) {
+			// could not read file
+			cout << "could not get highscore from server: " << endl;
+		}
 
-			float server_hs = sm.getHighscore();
 
-			cout << server_hs << endl;
+		try {
 
 			infile.open("bestscore.txt");
 			float bestscore = 0.f;
@@ -81,8 +88,8 @@ public:
 			snprintf(buffer, 15, "Best: %3.3f", bestscore);
 			othertext->setString(buffer);
 
-			bestScoreTime = bestscore > server_hs ? bestscore : server_hs;
-
+			bestScoreTime = bestscore < server_hs ? bestscore : server_hs;
+			cout << bestScoreTime << "bst" << endl;
 		}
 		catch (std::exception &e) {
 			// could not read file
@@ -125,11 +132,31 @@ public:
 		}
 
 		drawables.push_back(pm);
-		state = PLAYING;
+		state = COUNTDOWN;
+
+		// one time updates
+
 	}
 
 	void update()
 	{
+
+		static int ticks = 0;
+		if (state == COUNTDOWN) {
+			++ticks;
+			if (ticks < 30) {
+				laptext->setString("3...");
+			}
+			else if (ticks < 60) {
+				laptext->setString("2...");
+			}
+			else if (ticks < 90) {
+				laptext->setString("1...");
+			}
+			else {
+				state = PLAYING;
+			}
+		}
 
 		if (state == PLAYING) {
 			pm->isRendered = false;
@@ -229,7 +256,28 @@ public:
 
 		static float l1 = 0.f;
 
-		if (state == PLAYING) {
+
+		if (state == COUNTDOWN) {
+
+			timetext->setPosition(view->getCenter() - view->getSize() / 2.f);
+			laptext->setPosition(timetext->getPosition() + sf::Vector2f(200, 0));
+			othertext->setPosition(laptext->getPosition() + sf::Vector2f(200, 0));
+
+			hitHelper->handleCollisions();
+			sf::Vector2f sumPos;
+
+			float maxLSq = 0.f;
+
+			for (Player * p : players) {
+				p->updatePhysics(dt);
+				// center on the car(s)
+				sumPos += p->getCar()->getPosition();
+			}
+			view->setCenter(sumPos / (float)players.size());
+		}
+
+
+		else if (state == PLAYING) {
 			seconds += dt;
 
 			char buffer[7];
@@ -247,7 +295,6 @@ public:
 			sf::Vector2f sumPos;
 
 			float maxLSq = 0.f;
-
 
 			for (Player * p : players) {
 				p->updatePhysics(dt);
@@ -272,7 +319,7 @@ public:
 
 		}
 		else if (state == PAUSE) {
-			cout << "paused" << endl;
+			//cout << "paused" << endl;
 		}
 		else if (state == FINISH) {
 			for (Player * p : players) {
