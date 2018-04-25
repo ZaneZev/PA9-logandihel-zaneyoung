@@ -8,7 +8,7 @@
 #include <SFML\Audio.hpp>
 #include <vector>
 #include "PauseMenu.h"
-
+ 
 extern sf::RenderWindow * gameObj;
 extern Scene * CurrentScene;
 
