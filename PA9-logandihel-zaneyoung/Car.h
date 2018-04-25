@@ -11,7 +11,7 @@
 //https://www.gamedev.net/forums/topic/470497-2d-car-physics-tutorial/
 class Car : public sf::Drawable {
 public:
-	Car(sf::Vector2f &pos, sf::Color color, sf::Vector2f &size)
+	Car(sf::Vector2f &pos, sf::Color color, sf::Vector2f &size,std::string carPath)
 	{
 		chasis = new RigidBody2(sf::Vector2f(size.x - 8, size.y - 8), pos);
 		//chasis = new RigidBody(pos, size);
@@ -19,7 +19,7 @@ public:
 		carBody = new sf::RectangleShape(size);
 
 		texture = new sf::Texture;
-		if (!texture->loadFromFile("./sprites/deborean.png")) {
+		if (!texture->loadFromFile(carPath)) {
 			cout << "could not load texture" << endl;
 		}
 

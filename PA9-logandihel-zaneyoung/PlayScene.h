@@ -22,9 +22,13 @@ typedef enum playstate {
 
 class PlayScene : public Scene {
 public:
-	PlayScene(sf::Vector2f &size, string filepath , map *theMap) : Scene(size, filepath) 
+	PlayScene(sf::Vector2f &size, string filepath , map *theMap , string carPath) : Scene(size, filepath) 
 	{
 		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
+    
+		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "wasd", "P1"));
+		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "ijkl", "P2"));
+		
 		timetext = new sf::Text();
 		laptext = new sf::Text();
 		othertext = new sf::Text();
@@ -49,12 +53,11 @@ public:
 			music->play();
 		}
 		
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(),"wasd","P1"));
-	//	localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition() + sf::Vector2f(32, 0), "ijkl", "P2"));
 		for (Player * p : localPlayers) {
 			p->nextCheckpoint = theMap->pStart;
 			players.push_back(p);
 		}
+    
 		hitHelper = new collisionHandler(theMap, players);
 		view = new sf::View(sf::Vector2f(0,0), (sf::Vector2f)gameObj->getSize());
 		view->zoom(0.75);
