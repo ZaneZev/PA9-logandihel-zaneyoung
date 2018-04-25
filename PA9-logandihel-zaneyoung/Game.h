@@ -12,12 +12,9 @@
 #include <vector>
 #include "Car.h"
 #include "LocalPlayer.h"
-#include "PlayScene.h"
-#include "SplashScene.h"
 #include "Scene.h"
-#include "MenuScene.h"
 
-/*z
+/*
 DEBUG MODE
 COMMENT OUT TO PUT
 INTO PRODUCTION MODE
@@ -43,7 +40,7 @@ public:
 		sf::RenderWindow(sf::VideoMode(width, height), title) {
 		this->targetFPS = fps;
 		this->title = title;
-		CurrentScene = new SplashScene;
+		CurrentScene = new SplashScene();
 		justResized = false;
 	}
 	~Game();
