@@ -21,11 +21,29 @@ typedef enum playstate {
 
 class PlayScene : public Scene {
 public:
-	PlayScene(sf::Vector2f &size, string filepath , map *theMap , string carPath) : Scene(size, filepath) 
+	PlayScene(sf::Vector2f &size, string filepath , map *theMap , vector<string> carPaths) : Scene(size, filepath) 
 	{
+		sf::Vector2f offset(24, 0);
 		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
-    
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "wasd", "P1"));
+		for (int i = 0; i < carPaths.size(); i++) {
+			switch (i)
+			{
+			case 0:
+				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+((float)i*offset), carPaths[i], "wasd", "P1"));
+				break;
+			case 1:
+				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+ ((float)i*offset), carPaths[i], "ijkl", "P2"));
+				break;
+			case 2:
+				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+ ((float)i*offset), carPaths[i], "tfgh", "P3"));
+				break;
+			case 3:
+				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+ ((float)i*offset), carPaths[i], "=[]\\", "P4"));
+				break;
+			default:
+				break;
+			}
+		}
 		//localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "ijkl", "P2"));
 		
 		timetext = new sf::Text();
