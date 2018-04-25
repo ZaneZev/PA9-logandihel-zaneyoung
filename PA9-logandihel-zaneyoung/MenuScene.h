@@ -8,6 +8,7 @@
 #include "map.h"
 #include "CarSelectScene.h"
 #include "PlayScene.h"
+#include "numPlayerSelectScene.h"
 
 extern Scene * CurrentScene;
 extern sf::RenderWindow * gameObj;
@@ -27,7 +28,8 @@ public:
 				switch (btn->getId()) {
 				case 0:
 					//CurrentScene = new PlayScene(sf::Vector2f(4000, 2000), "./maps/racetrack2.png",new map("./maps/racetrack2.svg"));
-					CurrentScene = new CarSelectScene();
+					//CurrentScene = new CarSelectScene();
+					CurrentScene = new numPlayerSelectScene;
 					delete this;
 					return;
 				}
