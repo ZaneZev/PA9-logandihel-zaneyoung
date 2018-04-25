@@ -22,7 +22,7 @@ public:
 		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
 		text = new sf::Text();
 		text->setFont(font);
-		text->setCharacterSize(10);
+		text->setCharacterSize(50);
 		setText(btnText);
 		clicked = false;
 		texture = nullptr;

@@ -1,7 +1,6 @@
 colonel-jones
 deborean
 ecto-1
-first-car
 herbie
 mach-5
 mystery-machine

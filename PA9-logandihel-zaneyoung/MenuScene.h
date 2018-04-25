@@ -15,7 +15,7 @@ extern sf::RenderWindow * gameObj;
 class MenuScene :public Scene {
 public:
 	MenuScene() : Scene() {
-		Button * temp = new Button(sf::Color(0, 255, 255, 255), sf::Color::Blue,sf::Color(100,255,255,255),"Play",sf::Vector2f(600,200),sf::Vector2f(((gameObj->getSize().x-600)/2), ((gameObj->getSize().y - 200) / 2)+150),0);
+		Button * temp = new Button(sf::Color(0, 255, 255, 255), sf::Color::Blue,sf::Color(100,255,255,255),"Play",sf::Vector2f(((gameObj->getSize().x-600)/2), ((gameObj->getSize().y - 200) / 2)-150), sf::Vector2f(600, 200),0);
 		btns.push_back(temp);
 		drawables.push_back(temp);
 	}
