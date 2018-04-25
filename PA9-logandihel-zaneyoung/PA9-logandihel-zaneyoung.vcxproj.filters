@@ -51,6 +51,7 @@
       <Filter>Map</Filter>
     </ClInclude>
     <ClInclude Include="collisionHandler.h" />
+    <ClInclude Include="PauseMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

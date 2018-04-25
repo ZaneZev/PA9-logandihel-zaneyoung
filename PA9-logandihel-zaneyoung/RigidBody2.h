@@ -1,4 +1,6 @@
-#pragma once
+#ifndef RIGIDBODY_H
+#define RIDIDBODY_H
+
 #include "testing.h"
 #include <SFML/Graphics.hpp>
 
@@ -118,3 +120,4 @@ private:
 	float torque;
 	float angV;
 };
+#endif

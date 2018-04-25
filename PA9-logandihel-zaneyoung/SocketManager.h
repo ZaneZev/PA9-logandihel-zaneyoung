@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SOCKETMANAGER_H
+#define SOCKETMANAGER_H
+
 #include "testing.h"
 #include <SFML/Network.hpp>
 #include <string>
@@ -33,3 +35,4 @@ private:
 	bool handshakeSuccess;
 	int serverID; // server tells us our custom ID
 };
+#endif

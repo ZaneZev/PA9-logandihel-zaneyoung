@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include "testing.h"
 #include <SFML/Window.hpp>
@@ -43,3 +44,4 @@ private:
 	sf::Text name;
 	int checkpointsHit;
 };
+#endif

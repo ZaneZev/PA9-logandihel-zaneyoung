@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TESTING_H
+#define TESTING_H
 
 /*
 testing.h
@@ -11,3 +12,4 @@ and disable a bunch of print statements
 
 using std::cout;
 using std::endl;
+#endif

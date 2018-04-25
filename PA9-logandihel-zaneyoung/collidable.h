@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COLLIDABLE_H
+#define COLLIDABLE_H
 #include "testing.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -22,3 +23,4 @@ public:
 		pNextMarker = nullptr;
 	}
 };
+#endif

@@ -1,11 +1,24 @@
-#pragma once
+#ifndef PLAYSCENE_H
+#define PLAYSCENE_H
+
 #include "Scene.h"
 #include "LocalPlayer.h"
 #include "map.h"
 #include "collisionHandler.h"
+#include "MenuScene.h"
 #include <SFML\Audio.hpp>
 #include <vector>
-extern sf::RenderWindow * gameObj;
+#include "PauseMenu.h"
+
+//extern sf::RenderWindow * gameObj;
+//extern Scene * CurrentScene;
+
+typedef enum playstate {
+	PLAYING = 0,
+	PAUSE = 1,
+	FINISH = 2,
+	EXIT = 3
+} PlayState;
 
 class PlayScene : public Scene {
 public:
@@ -24,14 +37,17 @@ public:
 		laptext->setCharacterSize(50);
 		othertext->setCharacterSize(50);
 
+		lap = 1;
+		totalLaps = 2;
+
+		state = PLAYING;
+
 		this->theMap = theMap;
-		raceIsLive = true;
 
 		music = new sf::Music();
 		if (music->openFromFile("./songs/blockrunner.wav")) {
 			music->play();
 		}
-		
 		
 		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(),"wasd","P1"));
 	//	localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition() + sf::Vector2f(32, 0), "ijkl", "P2"));
@@ -43,8 +59,12 @@ public:
 		view = new sf::View(sf::Vector2f(0,0), (sf::Vector2f)gameObj->getSize());
 		view->zoom(0.75);
 		seconds = 0.f;
-		lap = 1;
-		//sidebar = new RectangleShape();
+
+		pm = new PauseMenu(view, font);
+
+		pauseBackground = new sf::RectangleShape(view->getSize()*3.f/4.f);
+		pauseBackground->setOrigin(view->getCenter());
+		pauseBackground->setFillColor(sf::Color::Cyan);
 
 		// remember that order matters! 
 		// what's pushed first is drawn first
@@ -57,29 +77,64 @@ public:
 		for (Player * p : players) {
 			drawables.push_back(p);
 		}
-		
+
+		drawables.push_back(pm);
 	}
 
 	void update()
 	{
-		int maxLap = 0;
-		for (Player * p : players) {
-			p->update();
-			int l = (p->getCheckpointsHit() - 1) / theMap->numCheckpoints + 1;
-			if (l > maxLap) {
-				maxLap = l;
+
+		if (state == PLAYING) {
+			pm->isRendered = false;
+			int maxLap = 0;
+			for (Player * p : players) {
+				p->update();
+				int l = (p->getCheckpointsHit() - 1) / theMap->numCheckpoints + 1;
+				if (l > maxLap) {
+					maxLap = l;
+				}
+			}
+			lap = maxLap;
+
+			// race is finished
+			if (lap > totalLaps) {
+				state = FINISH;
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+				state = PAUSE;
 			}
 		}
-		lap = maxLap;
-		// max laps
-		if (lap > 10) {
-			raceIsLive = false;
+		else if (state == PAUSE || state == FINISH) {
+			pm->isRendered = true;
+			pm->resize();
+
+			if (state == PAUSE) {
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+					state = PLAYING;
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+					state = EXIT;
+				}
+			}
+			else {
+				// new highscore??
+				pm->message->setString("FINISH\n\nPress Q to Save and Quit");
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+					state = EXIT;
+				}
+			}
+		}
+		else if (state == EXIT) {
+			//CurrentScene = new MenuScene;
+			//delete this;
+			// switch to main menu and delete this pupper
 		}
 	}
 
 	void updatePhysics(float dt)
 	{
-		if (raceIsLive) {
+		if (state == PLAYING) {
 			seconds += dt;
 
 			char buffer[7];
@@ -102,13 +157,29 @@ public:
 			}
 			view->setCenter(sumPos / (float)players.size());
 		}
-		else {
+		else if (state == PAUSE) {
+			cout << "paused" << endl;
+		}
+		else if (state == FINISH) {
 			for (Player * p : players) {
 				p->getCar()->updatePhysics(dt);
 				// let them all coast with no control
 			}
 			laptext->setString("Finish");
 		}
+	}
+
+	virtual ~PlayScene() {
+		delete hitHelper;
+		delete theMap;
+		delete timetext;
+		delete laptext;
+		delete othertext;
+		delete pauseBackground;
+		delete pm;
+
+		music->stop();
+		delete music;
 	}
 
 private:
@@ -120,11 +191,17 @@ private:
 	sf::Text *timetext;
 	sf::Text *laptext;
 	sf::Text *othertext;
-	sf::RectangleShape *sidebar;
+	sf::RectangleShape *pauseBackground;
 	float seconds;
 	int lap;
-	bool raceIsLive;
+	int totalLaps;
+	PlayState state;
+
+	// pause menu
+	PauseMenu *pm;
 
 	// music
 	sf::Music *music;
 };
+
+#endif

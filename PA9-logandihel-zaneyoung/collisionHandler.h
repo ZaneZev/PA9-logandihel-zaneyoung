@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COLLISIONHANDLER_H
+#define COLLISIONHANDLER_H
 #include "collidable.h"
 #include "map.h"
 #include "LocalPlayer.h"
@@ -91,3 +92,4 @@ private:
 	std::vector<Player *> players;
 
 };
+#endif
