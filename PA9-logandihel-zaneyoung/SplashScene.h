@@ -20,6 +20,7 @@ public:
 		fCount++;
 		if (fCount >= (15 * 3)) {
 			text->setScale(sf::Vector2f(1 - ((float)(fCount - 45) / 45.0f), 1 - ((float)(fCount - 45) / 45.0f)));
+			text->setRotation(fCount / 45.f * 360.f);
 		}
 		if (fCount == (30*3)) {
 			CurrentScene = new MenuScene;
@@ -33,9 +34,10 @@ public:
 		text = new sf::Text();
 		text->setFont(font);
 		text->setCharacterSize(50);
-		text->setString("Splash Screen!");
-		text->setPosition(sf::Vector2f(200, 200));
-
+		text->setString("NITRO KNOCKOFFS\n\nFinal Project CPTS 122\n\nLogan Dihel & Zane Young");
+		text->setOrigin(sf::Vector2f(200, 100));
+		text->setPosition(sf::Vector2f(400, 300));
+		
 		// remember that order matters! 
 		// what's pushed first is drawn first
 		drawables.push_back(text);
