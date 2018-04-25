@@ -5,12 +5,12 @@
 #include "LocalPlayer.h"
 #include "map.h"
 #include "collisionHandler.h"
-#include "MenuScene.h"
+//#include "MenuScene.h"
 #include <SFML\Audio.hpp>
 #include <vector>
 #include "PauseMenu.h"
 
-//extern sf::RenderWindow * gameObj;
+extern sf::RenderWindow * gameObj;
 //extern Scene * CurrentScene;
 
 typedef enum playstate {
