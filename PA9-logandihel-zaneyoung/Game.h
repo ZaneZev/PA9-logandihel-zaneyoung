@@ -29,7 +29,6 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-
 /*
 Game.h
 Inherits from the sf::RenderWindow class
@@ -49,6 +48,9 @@ public:
 	}
 	~Game();
 	void start();
+	void goHOME() {
+		CurrentScene = new MenuScene;
+	}
 
 private:
 	int targetFPS;

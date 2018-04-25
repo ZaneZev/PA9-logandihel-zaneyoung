@@ -18,6 +18,5 @@ int main()
 	game.start();
 
 	system("pause");
-
     return 0;
 }

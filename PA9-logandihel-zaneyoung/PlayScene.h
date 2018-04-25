@@ -5,13 +5,12 @@
 #include "LocalPlayer.h"
 #include "map.h"
 #include "collisionHandler.h"
-//#include "MenuScene.h"
 #include <SFML\Audio.hpp>
 #include <vector>
 #include "PauseMenu.h"
 
 extern sf::RenderWindow * gameObj;
-//extern Scene * CurrentScene;
+extern Scene * CurrentScene;
 
 typedef enum playstate {
 	PLAYING = 0,
@@ -27,7 +26,7 @@ public:
 		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
     
 		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "wasd", "P1"));
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "ijkl", "P2"));
+		//localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "ijkl", "P2"));
 		
 		timetext = new sf::Text();
 		laptext = new sf::Text();
@@ -56,6 +55,7 @@ public:
 		for (Player * p : localPlayers) {
 			p->nextCheckpoint = theMap->pStart;
 			players.push_back(p);
+			cout << "p" << endl;
 		}
     
 		hitHelper = new collisionHandler(theMap, players);
@@ -64,10 +64,6 @@ public:
 		seconds = 0.f;
 
 		pm = new PauseMenu(view, font);
-
-		pauseBackground = new sf::RectangleShape(view->getSize()*3.f/4.f);
-		pauseBackground->setOrigin(view->getCenter());
-		pauseBackground->setFillColor(sf::Color::Cyan);
 
 		// remember that order matters! 
 		// what's pushed first is drawn first
@@ -129,9 +125,11 @@ public:
 			}
 		}
 		else if (state == EXIT) {
-			//CurrentScene = new MenuScene;
-			//delete this;
-			// switch to main menu and delete this pupper
+			// save high score
+			// display high score
+			// exit the program
+			exit(1);
+			// cry
 		}
 	}
 
@@ -173,13 +171,6 @@ public:
 	}
 
 	virtual ~PlayScene() {
-		delete hitHelper;
-		delete theMap;
-		delete timetext;
-		delete laptext;
-		delete othertext;
-		delete pauseBackground;
-		delete pm;
 
 		music->stop();
 		delete music;
@@ -194,7 +185,6 @@ private:
 	sf::Text *timetext;
 	sf::Text *laptext;
 	sf::Text *othertext;
-	sf::RectangleShape *pauseBackground;
 	float seconds;
 	int lap;
 	int totalLaps;
