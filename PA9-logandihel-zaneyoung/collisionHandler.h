@@ -29,7 +29,7 @@ public:
 							rb2->velocity.x = -bounce;
 						}
 						else {
-							rb2->velocity.x = -20.f;
+							rb2->velocity.x = -bounce;
 						}
 						
 					}

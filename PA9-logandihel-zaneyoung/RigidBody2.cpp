@@ -5,8 +5,6 @@ void RigidBody2::addForce(sf::Vector2f &force) {
 }
 
 void RigidBody2::addTorque(float torque) {
-	float radius = getSize().y / 4;
-	//this->force += sf::Vector2f(0, torque * radius);
 	this->torque += torque;
 }
 

@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="bestscore.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="buttons">

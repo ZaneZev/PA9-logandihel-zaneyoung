@@ -22,13 +22,17 @@ public:
 	SocketManager() : sf::TcpSocket() {
 		if (!handshake()) {
 			handshakeSuccess = false;
-			throw exception("Could not handshake with server. Online access not avaliable");
+			//throw exception("Could not handshake with server. Online access not avaliable");
 		}
 		else {
 			handshakeSuccess = true;
 		}
 	}
 	~SocketManager();
+
+
+	float getHighscore();
+	void sendHighscore(float hs);
 
 private:
 	bool handshake();

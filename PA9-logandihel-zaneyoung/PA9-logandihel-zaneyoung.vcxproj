@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="bestscore.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
