@@ -40,6 +40,25 @@ bool SocketManager::handshake() {
 	
 	return returnStatus;
 }
+
+float SocketManager::getHighscore() {
+	std::string message = "bestscore_query";
+	send(message.c_str(), message.size()); // dont send the \0
+
+										   // await response
+	char buffer[1024];
+	std::size_t received = 0;
+	receive(buffer, sizeof(buffer), received);
+	std::cout << "The server said: " << buffer << std::endl;
+
+	return std::atoi(buffer);
+}
+
+void SocketManager::sendHighscore(float hs) {
+	char buffer[30];
+	snprintf(buffer, 30, "newscore%3.3f", hs);
+	send(buffer, 30); // dont send the \0
+}
 /*
 sf::TcpSocket socket;
 sf::Socket::Status status = socket.connect(sf::IpAddress("loveisblind.fun"), 3000);

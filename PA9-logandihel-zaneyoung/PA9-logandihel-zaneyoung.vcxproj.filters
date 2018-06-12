@@ -43,9 +43,13 @@
     </ClInclude>
     <ClInclude Include="collisionHandler.h" />
     <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="numPlayerSelectScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="bestscore.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="buttons">

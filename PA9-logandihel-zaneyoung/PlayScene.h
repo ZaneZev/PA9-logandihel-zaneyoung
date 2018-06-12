@@ -7,12 +7,19 @@
 #include "collisionHandler.h"
 #include <SFML\Audio.hpp>
 #include <vector>
+#include <string>
+#include <fstream>
 #include "PauseMenu.h"
  
 extern sf::RenderWindow * gameObj;
 extern Scene * CurrentScene;
 
+using std::ofstream;
+using std::ifstream;
+using std::string;
+
 typedef enum playstate {
+	COUNTDOWN = -1,
 	PLAYING = 0,
 	PAUSE = 1,
 	FINISH = 2,
@@ -21,11 +28,29 @@ typedef enum playstate {
 
 class PlayScene : public Scene {
 public:
-	PlayScene(sf::Vector2f &size, string filepath , map *theMap , string carPath) : Scene(size, filepath) 
+	PlayScene(sf::Vector2f &size, string filepath , map *theMap , vector<string> carPaths) : Scene(size, filepath) 
 	{
+		sf::Vector2f offset(24, 0);
 		font.loadFromFile("./fonts/slope-opera/SlopeOpera.otf");
-    
-		localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "wasd", "P1"));
+		for (int i = 0; i < carPaths.size(); i++) {
+			switch (i)
+			{
+			case 0:
+				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+((float)i*offset), carPaths[i], "wasd", "P1"));
+				break;
+			case 1:
+				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+ ((float)i*offset), carPaths[i], "ijkl", "P2"));
+				break;
+			case 2:
+				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+ ((float)i*offset), carPaths[i], "tfgh", "P3"));
+				break;
+			case 3:
+				localPlayers.push_back(new LocalPlayer(theMap->startBox->getPosition()+ ((float)i*offset), carPaths[i], "zxcv", "P4"));
+				break;
+			default:
+				break;
+			}
+		}
 		//localPlayers.push_back( new LocalPlayer(theMap->startBox->getPosition(), carPath, "ijkl", "P2"));
 		
 		timetext = new sf::Text();
@@ -40,11 +65,41 @@ public:
 		laptext->setCharacterSize(50);
 		othertext->setCharacterSize(50);
 
+		bestScoreTime = 1E6; // bad time
+		float server_hs = 1E6;
+
+		try {
+			server_hs = sm.getHighscore();
+		}
+		catch (std::exception &e) {
+			// could not read file
+			cout << "could not get highscore from server: " << endl;
+		}
+
+
+		try {
+
+			infile.open("bestscore.txt");
+			float bestscore = 0.f;
+			infile >> bestscore;
+			infile.close();
+
+			char buffer[15];
+			snprintf(buffer, 15, "Best: %3.3f", bestscore);
+			othertext->setString(buffer);
+
+			bestScoreTime = bestscore < server_hs ? bestscore : server_hs;
+			cout << bestScoreTime << "bst" << endl;
+		}
+		catch (std::exception &e) {
+			// could not read file
+			cout << "could not read file: " << "bestscore.txt" << endl;
+		}
+
 		lap = 1;
-		totalLaps = 2;
+		totalLaps = 3;
 
-		state = PLAYING;
-
+		raceDone = false;
 		this->theMap = theMap;
 
 		music = new sf::Music();
@@ -55,7 +110,6 @@ public:
 		for (Player * p : localPlayers) {
 			p->nextCheckpoint = theMap->pStart;
 			players.push_back(p);
-			cout << "p" << endl;
 		}
     
 		hitHelper = new collisionHandler(theMap, players);
@@ -78,10 +132,31 @@ public:
 		}
 
 		drawables.push_back(pm);
+		state = COUNTDOWN;
+
+		// one time updates
+
 	}
 
 	void update()
 	{
+
+		static int ticks = 0;
+		if (state == COUNTDOWN) {
+			++ticks;
+			if (ticks < 30) {
+				laptext->setString("3...");
+			}
+			else if (ticks < 60) {
+				laptext->setString("2...");
+			}
+			else if (ticks < 90) {
+				laptext->setString("1...");
+			}
+			else {
+				state = PLAYING;
+			}
+		}
 
 		if (state == PLAYING) {
 			pm->isRendered = false;
@@ -98,6 +173,7 @@ public:
 			// race is finished
 			if (lap > totalLaps) {
 				state = FINISH;
+				raceDone = true;
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -118,7 +194,28 @@ public:
 			}
 			else {
 				// new highscore??
-				pm->message->setString("FINISH\n\nPress Q to Save and Quit");
+
+				string str;
+				string winner;
+				int maxChecks = 0;
+				for (Player * p : players) {
+					if (p->getCheckpointsHit() > maxChecks) {
+						winner = p->name;
+					}
+				}
+
+				if (seconds < bestScoreTime) {
+					str += "NEW HIGHSCORE\n\n";
+				}
+				else {
+					str += "FINISH\n\n";
+				}
+
+				str += winner + " WINS\n\n";
+				str += "Press Q to Quit";
+
+				pm->setMessage(str);
+				
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 					state = EXIT;
 				}
@@ -126,8 +223,29 @@ public:
 		}
 		else if (state == EXIT) {
 			// save high score
-			// display high score
-			// exit the program
+			if (raceDone) {
+				try {
+					float besttimeever = seconds < bestScoreTime ? seconds : bestScoreTime;
+					sm.sendHighscore(besttimeever);
+				}
+				catch (std::exception &e) {
+					cout << "could not send the best time ever to the server" << endl;
+				}
+
+				if (seconds < bestScoreTime) {
+					// new high score
+					try {
+						outfile.open("bestscore.txt");
+						char buffer[8];
+						snprintf(buffer, 8, "%3.3f", seconds);
+						outfile.write(buffer, strlen(buffer));
+					}
+					catch (std::exception &e) {
+						cout << "could not save score" << endl;
+					}
+				}
+			}
+			
 			exit(1);
 			// cry
 		}
@@ -135,22 +253,21 @@ public:
 
 	void updatePhysics(float dt)
 	{
-		if (state == PLAYING) {
-			seconds += dt;
 
-			char buffer[7];
-			snprintf(buffer, 7, "%03.3f", seconds);
-			timetext->setString(buffer);
+		static float l1 = 0.f;
 
 
-			snprintf(buffer, 7, "Lap %d", lap);
-			laptext->setString(buffer);
+		if (state == COUNTDOWN) {
 
 			timetext->setPosition(view->getCenter() - view->getSize() / 2.f);
-			laptext->setPosition(timetext->getPosition() + sf::Vector2f(300, 0));
+			laptext->setPosition(timetext->getPosition() + sf::Vector2f(200, 0));
+			othertext->setPosition(laptext->getPosition() + sf::Vector2f(200, 0));
 
 			hitHelper->handleCollisions();
 			sf::Vector2f sumPos;
+
+			float maxLSq = 0.f;
+
 			for (Player * p : players) {
 				p->updatePhysics(dt);
 				// center on the car(s)
@@ -158,8 +275,51 @@ public:
 			}
 			view->setCenter(sumPos / (float)players.size());
 		}
+
+
+		else if (state == PLAYING) {
+			seconds += dt;
+
+			char buffer[7];
+			snprintf(buffer, 7, "%03.3f", seconds);
+			timetext->setString(buffer);
+
+			snprintf(buffer, 7, "Lap %d", lap);
+			laptext->setString(buffer);
+
+			timetext->setPosition(view->getCenter() - view->getSize() / 2.f);
+			laptext->setPosition(timetext->getPosition() + sf::Vector2f(200, 0));
+			othertext->setPosition(laptext->getPosition() + sf::Vector2f(200, 0));
+
+			hitHelper->handleCollisions();
+			sf::Vector2f sumPos;
+
+			float maxLSq = 0.f;
+
+			for (Player * p : players) {
+				p->updatePhysics(dt);
+				// center on the car(s)
+				sumPos += p->getCar()->getPosition();
+			}
+			view->setCenter(sumPos / (float)players.size());
+
+			for (Player * p : players) {
+				sf::Vector2f dLF = view->getCenter() - p->getCar()->getPosition();
+				float L = dLF.x * dLF.x + dLF.y * dLF.y;
+
+				if (L > maxLSq) {
+					maxLSq = L;
+				}
+			}
+
+			float deltaL = sqrt(l1) - sqrt(maxLSq);
+			view->zoom(-deltaL * 0.00099f + 1.f);
+
+			l1 = maxLSq;
+
+		}
 		else if (state == PAUSE) {
-			cout << "paused" << endl;
+			//cout << "paused" << endl;
 		}
 		else if (state == FINISH) {
 			for (Player * p : players) {
@@ -189,12 +349,21 @@ private:
 	int lap;
 	int totalLaps;
 	PlayState state;
+	bool raceDone;
+
+	float bestScoreTime;
 
 	// pause menu
 	PauseMenu *pm;
 
 	// music
 	sf::Music *music;
+
+	// bestscore
+	ifstream infile;
+	ofstream outfile;
+
+	SocketManager sm;
 };
 
 #endif

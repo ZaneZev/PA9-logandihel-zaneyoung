@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="bestscore.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="LocalPlayer.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="numPlayerSelectScene.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RigidBody.h" />
